@@ -1,0 +1,20 @@
+[submodule "ext/cloog"]
+	path = ext/cloog
+	url = git://github.com/gbeauchesne/cloog.git
+	branch = toolchain/develop
+[submodule "ext/gmp"]
+	path = ext/gmp
+	url = git://github.com/gbeauchesne/gmp.git
+	branch = toolchain/develop
+[submodule "ext/isl"]
+	path = ext/isl
+	url = git://github.com/gbeauchesne/isl.git
+	branch = toolchain/develop
+[submodule "ext/mpc"]
+	path = ext/mpc
+	url = git://github.com/gbeauchesne/mpc.git
+	branch = toolchain/develop
+[submodule "ext/mpfr"]
+	path = ext/mpfr
+	url = git://github.com/gbeauchesne/mpfr.git
+	branch = toolchain/develop
