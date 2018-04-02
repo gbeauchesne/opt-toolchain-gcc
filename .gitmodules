@@ -22,3 +22,7 @@
 	path = ext/binutils
 	url = git://github.com/gbeauchesne/binutils.git
 	branch = toolchain/develop
+[submodule "ext/gcc"]
+	path = ext/gcc
+	url = git://github.com/gbeauchesne/gcc.git
+	branch = trunk
