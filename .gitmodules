@@ -18,3 +18,7 @@
 	path = ext/mpfr
 	url = git://github.com/gbeauchesne/mpfr.git
 	branch = toolchain/develop
+[submodule "ext/binutils"]
+	path = ext/binutils
+	url = git://github.com/gbeauchesne/binutils.git
+	branch = toolchain/develop
