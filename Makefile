@@ -77,7 +77,9 @@ c_empty :=
 c_space := $(c_empty) $(c_empty)
 
 # The GNU Compiler Collection (GCC)
-v_gcc = $(shell cat $(git_submodulesdir)/gcc/gcc/BASE-VER)
+v_gcc = $(shell cat $(firstword $(wildcard \
+		$(git_submodulesdir)/gcc/gcc/FULL-VER \
+		$(git_submodulesdir)/gcc/gcc/BASE-VER)))
 
 # ... the corresponding GCC branch
 v_gcc_branch = $(subst $(c_space),.,$(wordlist 1, 2, $(subst ., ,$(v_gcc))))
