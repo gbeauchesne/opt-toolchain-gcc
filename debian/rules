@@ -9,10 +9,11 @@ c_space := $(c_empty) $(c_empty)
 GCC_VERSION := $(shell $(MAKE)|sed -n '/^gcc.*: \([0-9][0-9.]*\)/s//\1/p')
 GCC_BRANCH := $(subst $(c_space),.,$(wordlist 1, 2, $(subst ., ,$(GCC_VERSION))))
 
-# Package name, that includes the GCC branch
+# Package name, that includes the GCC branch and UNIX timestamp
 PACKAGE_BASENAME = opt-toolchain-gcc
 PACKAGE_NAME = $(PACKAGE_BASENAME)-$(GCC_BRANCH)
-PACKAGE_VERSION = $(GCC_VERSION)
+PACKAGE_VERSION = $(GCC_VERSION)~$(PACKAGE_TIMESTAMP)
+PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: \([0-9][0-9]*\)/s//\1/p')
 
 # Date of the day for auto-generated debian/changelog file
 TODAY := $(shell LC_ALL=C date +'%a, %d %b %Y %X %z')
