@@ -302,3 +302,32 @@ dist.file: dist.dirs dist.list.deps
 dist.dirs: $(distdir)
 $(distdir):
 	@mkdir -p $@
+
+
+# -----------------------------------------------------------------------------
+# --- Rules for .deb packaging                                              ---
+# -----------------------------------------------------------------------------
+
+DEB_GENERATED_FILES := \
+	debian/opt-toolchain-gcc-$(v_gcc_branch).install \
+	debian/changelog \
+	debian/control
+
+debsrc_dir  = $(top_srcdir)/..
+debsrc_name = $(PROJECT)-$(v_gcc_branch)_$(v_gcc)~$(project_timestamp).orig
+debsrc_file = $(debsrc_name).tar.gz
+
+deb.files: $(DEB_GENERATED_FILES)
+deb: deb.files $(debsrc_dir)/$(debsrc_file)
+	debuild -b -uc -us
+
+debsrc.file.orig: $(debsrc_dir)/$(debsrc_file)
+$(debsrc_dir)/$(debsrc_file): dist.dirs dist.list.deps
+	$(MAKE) -s dist.list | tar zcf $(debsrc_dir)/$(debsrc_file) \
+	  --no-recursion --transform 's|^|$(debsrc_name)/|' -T - \
+	  --exclude "*/debian/*"
+
+debian/%: debian/%.in debian/rules
+	./debian/rules $@
+debian/$(PROJECT)-$(v_gcc_branch).%: debian/$(PROJECT).%.in debian/rules
+	./debian/rules $@

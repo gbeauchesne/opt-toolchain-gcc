@@ -1,0 +1,51 @@
+#!/usr/bin/make -f
+
+# Plain characters (comma, space)
+c_comma := ,
+c_empty :=
+c_space := $(c_empty) $(c_empty)
+
+# GCC version and corresponding branch
+GCC_VERSION := $(shell $(MAKE)|sed -n '/^gcc.*: \([0-9][0-9.]*\)/s//\1/p')
+GCC_BRANCH := $(subst $(c_space),.,$(wordlist 1, 2, $(subst ., ,$(GCC_VERSION))))
+
+# Package name, that includes the GCC branch
+PACKAGE_BASENAME = opt-toolchain-gcc
+PACKAGE_NAME = $(PACKAGE_BASENAME)-$(GCC_BRANCH)
+PACKAGE_VERSION = $(GCC_VERSION)
+
+# Date of the day for auto-generated debian/changelog file
+TODAY := $(shell LC_ALL=C date +'%a, %d %b %Y %X %z')
+
+# Debian files that need to be generated
+GENERATED_FILES = \
+	debian/$(PACKAGE_NAME).install \
+	debian/changelog \
+	debian/control
+
+# sed patterns for Debian files that need to be generated
+GENERATED_FILES_SED_PATTERNS = \
+	-e 's/@GCC_BRANCH@/$(GCC_BRANCH)/g' \
+	-e 's/@GCC_VERSION@/$(GCC_VERSION)/g' \
+	-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
+	-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
+	-e 's/@TODAY@/$(TODAY)/g'
+
+%:
+	dh $@ --parallel
+
+debian/%: debian/%.in debian/rules
+	sed $(GENERATED_FILES_SED_PATTERNS) $< >$@
+debian/$(PACKAGE_NAME).%: debian/$(PACKAGE_BASENAME).%.in debian/rules
+	sed $(GENERATED_FILES_SED_PATTERNS) $< >$@
+
+override_dh_auto_configure: $(GENERATED_FILES)
+	make configure \
+	  EXTRA_CONFIGURE_FLAGS='$(DEB_EXTRA_CONFIGURE_FLAGS)'
+
+override_dh_auto_build:
+	make build.only
+
+override_dh_auto_install:
+	make install.only \
+	  DESTDIR=$(CURDIR)/debian/tmp
