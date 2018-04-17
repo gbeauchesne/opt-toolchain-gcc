@@ -163,6 +163,7 @@ $(srcdir)/gcc/configure: $(git_submodulesdir)/gcc/gcc/configure
 $(srcdir)/binutils/configure: $(git_submodulesdir)/binutils/binutils/configure
 	repo="binutils" ; \
 	for f in $$(cd $(git_submodulesdir)/$$repo && ls); do \
+		case $$f in (gdb) continue;; esac; \
 		[ -e "$(srcdir)/$$f" ] || \
 		$(LN_S) ../$(git_submodulesdir)/$$repo/$$f $(srcdir)/ ; \
 	done
