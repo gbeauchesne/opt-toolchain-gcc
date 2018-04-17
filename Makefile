@@ -1,5 +1,7 @@
 top_srcdir ?= .
 
+PROJECT := opt-toolchain-gcc
+
 srcdir = $(top_srcdir)/src
 objdir = $(top_srcdir)/obj.$(target_triplet)
 prefix = /opt/toolchain/gcc-$(v_gcc_branch)
@@ -40,6 +42,9 @@ AUTORECONF = autoreconf
 
 # Program for creating symbolic links
 LN_S = ln -s
+
+# UNIX timestamp of the last git commit
+project_timestamp = $(shell $(GIT) log -1 --oneline --format=format:%ct)
 
 # Toplevel git submodules directory
 git_submodulesdir = $(top_srcdir)/ext
@@ -132,11 +137,15 @@ print.versions: fetch.git.submodules
 	@echo "#"
 	@echo "# GCC toolchain versions"
 	@echo "#"
+	@printf "%-20s : %s\n" $(PROJECT) $(project_timestamp)
 	@$(foreach repo, $(git_submodules), \
 		printf "%-20s : %s\n" $(repo) $(v_$(repo));)
 
 print.%.version: $(git_submodulesdir)/%/.git
 	@echo $(v_$(*F))
+
+print.$(PROJECT).version:
+	@echo $(project_timestamp)
 
 .NOTPARALLEL: prepare prepare.dirs prepare.srcs
 prepare: prepare.dirs prepare.srcs
