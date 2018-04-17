@@ -135,6 +135,9 @@ print.versions: fetch.git.submodules
 	@$(foreach repo, $(git_submodules), \
 		printf "%-20s : %s\n" $(repo) $(v_$(repo));)
 
+print.%.version: $(git_submodulesdir)/%/.git
+	@echo $(v_$(*F))
+
 .NOTPARALLEL: prepare prepare.dirs prepare.srcs
 prepare: prepare.dirs prepare.srcs
 
