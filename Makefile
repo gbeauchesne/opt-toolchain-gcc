@@ -175,6 +175,11 @@ build: configure
 build.only:
 	$(MAKE) -C $(objdir) $(gcc_makeflags)
 
+install: build
+	$(MAKE) install.only
+install.only:
+	$(MAKE) -C $(objdir) install DESTDIR=$(DESTDIR)
+
 
 # -----------------------------------------------------------------------------
 # --- Rules for preparing the git submodules                                ---
