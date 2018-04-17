@@ -2,11 +2,19 @@ Source: @PACKAGE_NAME@
 Section: devel
 Priority: optional
 Maintainer: Gwenole Beauchesne <gb.devel@gmail.com>
-Build-Depends: automake,
-               autotools-dev,
+Build-Depends: bison,
+               build-essential,
                debhelper (>= 9),
-               libtool,
-               pkg-config
+               dpkg-dev,
+               flex,
+               ghostscript,
+               libz-dev,
+               lsb-release,
+               m4,
+               make,
+               patchutils,
+               pkg-config,
+               texinfo
 Standards-Version: 3.7.2
 
 Package: @PACKAGE_NAME@
