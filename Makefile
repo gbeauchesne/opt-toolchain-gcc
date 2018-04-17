@@ -63,6 +63,13 @@ gcc_confflags = \
 	--disable-multilib
 gcc_confflags += $(EXTRA_CONFIGURE_FLAGS)
 
+# The number of allowed parallel jobs
+PARALLEL_JOBS ?= $(shell getconf _NPROCESSORS_ONLN)
+
+# GCC make flags (default: make -j<N> / <N> is the number of logical threads)
+gcc_makeflags = -j$(PARALLEL_JOBS)
+gcc_makeflags += $(EXTRA_MAKE_FLAGS)
+
 
 # -----------------------------------------------------------------------------
 # --- Rules for extracting versions for thirdparty components (submodules)  ---
@@ -162,6 +169,11 @@ $(objdir):
 configure.objs: $(objdir)/Makefile
 $(objdir)/Makefile: prepare
 	cd $(objdir) && ../$(srcdir)/configure $(gcc_confflags)
+
+build: configure
+	$(MAKE) build.only
+build.only:
+	$(MAKE) -C $(objdir) $(gcc_makeflags)
 
 
 # -----------------------------------------------------------------------------
