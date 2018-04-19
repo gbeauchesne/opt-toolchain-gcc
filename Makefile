@@ -221,8 +221,12 @@ reset.git.submodule.%: clean.git.submodule.%
 
 fixup.git.submodules: $(fixup_git_submodules_deps)
 $(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ; \
-	(cd $$dir && $(AUTORECONF) -vif)
+	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ;	\
+	case $$repo in						\
+	  (binutils|gcc)	autoreconf=autoreconf2.64;;	\
+	  (*)			autoreconf=$(AUTORECONF);;	\
+	esac;							\
+	(cd $$dir && $$autoreconf -vif)
 
 $(git_submodulesdir)/gmp/doc/version.texi:
 	@echo "@set UPDATED `LC_ALL=C date +'%d %B %Y' -d $(v_gmp_date)`" > $@
