@@ -145,7 +145,7 @@ print.versions: fetch.git.submodules
 	@$(foreach repo, $(git_submodules), \
 		printf "%-20s : %s\n" $(repo) $(v_$(repo));)
 
-print.%.version: $(git_submodulesdir)/%/.git
+print.%.version: $(git_submodulesdir)/%/configure.ac
 	@echo $(v_$(*F))
 
 print.$(PROJECT).version:
@@ -202,8 +202,8 @@ install.only:
 # --- Rules for preparing the git submodules                                ---
 # -----------------------------------------------------------------------------
 
-fetch.git.submodules: $(git_submodules:%=$(git_submodulesdir)/%/.git)
-$(git_submodulesdir)/%/.git:
+fetch.git.submodules: $(git_submodules:%=$(git_submodulesdir)/%/configure.ac)
+$(git_submodulesdir)/%/configure.ac:
 	repo="$(*F)" ; \
 	(cd $(git_submodulesdir) && $(GIT) submodule update --init $$repo)
 
@@ -218,7 +218,7 @@ reset.git.submodule.%: clean.git.submodule.%
 	[ -d $$dir ] && (cd $$dir && $(GIT) reset --hard)
 
 fixup.git.submodules: $(fixup_git_submodules_deps)
-$(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/.git
+$(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac
 	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ; \
 	(cd $$dir && $(AUTORECONF) -vif)
 
