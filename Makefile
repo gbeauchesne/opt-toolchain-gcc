@@ -229,3 +229,30 @@ $(git_submodulesdir)/gmp/doc/version.texi:
 	@echo "@set UPDATED-MONTH `LC_ALL=C date +'%B %Y' -d $(v_gmp_date)`" >> $@
 	@echo "@set EDITION $(v_gmp)" >> $@
 	@echo "@set VERSION $(v_gmp)" >> $@
+
+
+# -----------------------------------------------------------------------------
+# --- Rules for generating a tarball                                        ---
+# -----------------------------------------------------------------------------
+
+distdir	 = $(top_srcdir)/dist
+distname = $(PROJECT)-$(v_gcc_branch)-$(v_gcc)~$(project_timestamp)
+distfile = $(distname).tar.gz
+
+dist.list: fetch.git.submodules $(top_srcdir)/.timestamp
+	@echo .timestamp ;						 \
+	for d in . `$(GIT) submodule foreach --quiet 'echo $$path')`; do \
+	  (cd $$d && git ls-tree -r --name-only HEAD) | while read f; do \
+	    case $$f in (*.git*|*.cvs*) continue;; esac;		 \
+	    [ -d "$$d/$$f" ] && [ -n "`ls -A $$d/$$f`" ] && continue;	 \
+	    echo "$$d/$$f";						 \
+	  done;								 \
+	done
+
+dist.file: dist.dirs
+	$(MAKE) -s dist.list | tar zcf $(distdir)/$(distfile) \
+	  --no-recursion --transform 's|^|$(distname)/|' -T -
+
+dist.dirs: $(distdir)
+$(distdir):
+	@mkdir -p $@
