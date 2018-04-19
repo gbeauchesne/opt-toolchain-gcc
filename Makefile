@@ -48,7 +48,7 @@ AUTORECONF = autoreconf
 LN_S = ln -s
 
 # UNIX timestamp of the last git commit
-project_timestamp = $(shell $(GIT) log -1 --oneline --format=format:%ct)
+project_timestamp = $(shell cat $(top_srcdir)/.timestamp 2>/dev/null)
 
 # Toplevel git submodules directory
 git_submodulesdir = $(top_srcdir)/ext
@@ -137,7 +137,7 @@ v_isl = $(shell sed -n '1s/version: $(p_version)/\1/p' \
 # --- Rules for configuring, building and installing the toolchain          ---
 # -----------------------------------------------------------------------------
 
-print.versions: fetch.git.submodules
+print.versions: fetch.git.submodules $(top_srcdir)/.timestamp
 	@echo "#"
 	@echo "# GCC toolchain versions"
 	@echo "#"
@@ -148,8 +148,10 @@ print.versions: fetch.git.submodules
 print.%.version: $(git_submodulesdir)/%/configure.ac
 	@echo $(v_$(*F))
 
-print.$(PROJECT).version:
+print.$(PROJECT).version: $(top_srcdir)/.timestamp
 	@echo $(project_timestamp)
+$(top_srcdir)/.timestamp: $(wildcard $(top_srcdir)/.git/index)
+	@(cd $(top_srcdir) && $(GIT) log -1 --oneline --format=format:%ct) >$@
 
 .NOTPARALLEL: prepare prepare.dirs prepare.srcs
 prepare: prepare.dirs prepare.srcs
