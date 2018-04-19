@@ -310,6 +310,7 @@ $(distdir):
 
 DEB_GENERATED_FILES := \
 	debian/opt-toolchain-gcc-$(v_gcc_branch).install \
+	debian/lintian-overrides \
 	debian/changelog \
 	debian/control
 

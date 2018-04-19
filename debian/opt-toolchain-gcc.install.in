@@ -1,1 +1,12 @@
-opt/toolchain/gcc-@GCC_BRANCH@
+opt/toolchain/gcc-@GCC_BRANCH@/*-linux/bin/*
+opt/toolchain/gcc-@GCC_BRANCH@/bin/*
+opt/toolchain/gcc-@GCC_BRANCH@/include/*
+opt/toolchain/gcc-@GCC_BRANCH@/lib/*.a
+opt/toolchain/gcc-@GCC_BRANCH@/lib/*.o
+opt/toolchain/gcc-@GCC_BRANCH@/lib/*.so*
+opt/toolchain/gcc-@GCC_BRANCH@/lib/*.spec
+opt/toolchain/gcc-@GCC_BRANCH@/lib/gcc
+opt/toolchain/gcc-@GCC_BRANCH@/lib/ldscripts
+opt/toolchain/gcc-@GCC_BRANCH@/libexec
+opt/toolchain/gcc-@GCC_BRANCH@/share/info/*.info*
+opt/toolchain/gcc-@GCC_BRANCH@/share/man/man1/*.1*

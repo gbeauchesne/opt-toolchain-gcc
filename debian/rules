@@ -21,6 +21,7 @@ TODAY := $(shell LC_ALL=C date +'%a, %d %b %Y %X %z')
 # Debian files that need to be generated
 GENERATED_FILES = \
 	debian/$(PACKAGE_NAME).install \
+	debian/lintian-overrides \
 	debian/changelog \
 	debian/control
 
