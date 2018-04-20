@@ -243,13 +243,41 @@ distdir	 = $(top_srcdir)/dist
 distname = $(PROJECT)-$(v_gcc_branch)-$(v_gcc)~$(project_timestamp)
 distfile = $(distname).tar.gz
 
-dist.list: fetch.git.submodules $(top_srcdir)/.timestamp
+AUTORECONF_GENERATED_FILES := \
+	Makefile.in \
+	aclocal.m4 \
+	ar-lib \
+	compile \
+	config.guess \
+	config.h.in \
+	config.in \
+	config.sub \
+	configure \
+	depcomp \
+	doc/mdate.sh \
+	doc/texinfo.tex \
+	install-sh \
+	isl_config.h.in \
+	ltmain.sh \
+	missing \
+	test-driver \
+	ylwrap
+
+dist.list: fixup.git.submodules $(top_srcdir)/.timestamp
 	@echo .timestamp ;						 \
 	for d in . `$(GIT) submodule foreach --quiet 'echo $$path')`; do \
 	  (cd $$d && git ls-tree -r --name-only HEAD) | while read f; do \
 	    case $$f in (*.git*|*.cvs*) continue;; esac;		 \
 	    [ -d "$$d/$$f" ] && [ -n "`ls -A $$d/$$f`" ] && continue;	 \
 	    echo "$$d/$$f";						 \
+	    case "$$f" in						 \
+	      (*/Makefile.am|Makefile.am)				 \
+		gd="$$d/`dirname $$f`";					 \
+		$(foreach gf, $(AUTORECONF_GENERATED_FILES),		 \
+		  [ -f "$$gd/$(gf)" ] && echo "$$gd/$(gf)";)		 \
+		[ -d "$$gd/m4" ] && ls -1 "$$gd/m4"/*.m4;		 \
+		;;							 \
+	    esac;							 \
 	  done;								 \
 	done
 
