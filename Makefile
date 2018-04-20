@@ -7,8 +7,9 @@ objdir = $(top_srcdir)/obj.$(target_triplet)
 prefix = /opt/toolchain/gcc-$(v_gcc_branch)
 
 # Filter out -Werror and -Werror=* from compilation flags (CFLAGS, CXXFLAGS)
-CFLAGS   := $(filter-out -Werror%, $(CFLAGS))
-CXXFLAGS := $(filter-out -Werror%, $(CXXFLAGS))
+# ... and use memory for temporaries, not disk files
+CFLAGS   := $(filter-out -Werror%, $(CFLAGS)) -pipe
+CXXFLAGS := $(filter-out -Werror%, $(CXXFLAGS)) -pipe
 
 # The build architecture (default: native ARCH)
 BUILD_ARCH = $(shell uname -m)
