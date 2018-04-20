@@ -263,7 +263,8 @@ AUTORECONF_GENERATED_FILES := \
 	test-driver \
 	ylwrap
 
-dist.list: fixup.git.submodules $(top_srcdir)/.timestamp
+dist.list.deps: fixup.git.submodules $(top_srcdir)/.timestamp
+dist.list: dist.list.deps
 	@echo .timestamp ;						 \
 	for d in . `$(GIT) submodule foreach --quiet 'echo $$path')`; do \
 	  (cd $$d && git ls-tree -r --name-only HEAD) | while read f; do \
@@ -281,7 +282,7 @@ dist.list: fixup.git.submodules $(top_srcdir)/.timestamp
 	  done;								 \
 	done
 
-dist.file: dist.dirs
+dist.file: dist.dirs dist.list.deps
 	$(MAKE) -s dist.list | tar zcf $(distdir)/$(distfile) \
 	  --no-recursion --transform 's|^|$(distname)/|' -T -
 
