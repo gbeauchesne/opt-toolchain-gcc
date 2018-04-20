@@ -226,7 +226,8 @@ $(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac
 	  (binutils|gcc)	autoreconf=autoreconf2.64;;	\
 	  (*)			autoreconf=$(AUTORECONF);;	\
 	esac;							\
-	(cd $$dir && $$autoreconf -vif)
+	(cd $$dir && $$autoreconf -vif) &&			\
+	  find $$dir -name configure -exec touch {} \;
 
 $(git_submodulesdir)/gmp/doc/version.texi:
 	@echo "@set UPDATED `LC_ALL=C date +'%d %B %Y' -d $(v_gmp_date)`" > $@
