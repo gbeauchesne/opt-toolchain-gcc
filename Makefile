@@ -70,7 +70,8 @@ gcc_confflags = \
 	--build=$(build_triplet) \
 	--target=$(target_triplet) \
 	--enable-languages=c,c++ \
-	--disable-multilib
+	--disable-multilib \
+	--with-system-zlib
 gcc_confflags += $(EXTRA_CONFIGURE_FLAGS)
 
 # The number of allowed parallel jobs
