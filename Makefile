@@ -6,6 +6,9 @@ srcdir = $(top_srcdir)/src
 objdir = $(top_srcdir)/obj.$(target_triplet)
 prefix = /opt/toolchain/gcc-$(v_gcc_branch)
 
+# Determine the host operating system variant
+dist_release := $(shell lsb_release -cs 2>/dev/null)
+
 # Filter out -Werror and -Werror=* from compilation flags (CFLAGS, CXXFLAGS)
 # ... and use memory for temporaries, not disk files
 CFLAGS   := $(filter-out -Werror%, $(CFLAGS)) -pipe
@@ -63,6 +66,12 @@ git_submodules += cloog isl
 fixup_git_submodules_deps = $(git_submodules:%=$(git_submodulesdir)/%/configure)
 fixup_git_submodules_deps += $(git_submodulesdir)/gmp/doc/version.texi
 
+# Linker options. Flag: do we use DT_GNU_HASH style by default?
+ld_hash_style = gnu
+ifneq (,$(filter $(dist_release),squeeze wheezy))
+ld_hash_style = both
+endif
+
 # GCC configure flags (default: build C & C++ support only)
 gcc_confflags = \
 	--prefix=$(prefix) \
@@ -71,6 +80,7 @@ gcc_confflags = \
 	--target=$(target_triplet) \
 	--enable-languages=c,c++ \
 	--disable-multilib \
+	--with-linker-hash-style=$(ld_hash_style) \
 	--with-system-zlib
 gcc_confflags += $(EXTRA_CONFIGURE_FLAGS)
 
