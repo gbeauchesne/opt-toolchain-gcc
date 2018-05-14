@@ -11,6 +11,9 @@ GCC_MAJOR_VERSION := $(word 1,$(subst ., ,$(GCC_VERSION)))
 GCC_MINOR_VERSION := $(word 2,$(subst ., ,$(GCC_VERSION)))
 GCC_BRANCH := $(GCC_MAJOR_VERSION).$(GCC_MINOR_VERSION)
 
+# GCC installation directory
+GCC_PREFIX = /opt/toolchain/gcc-$(GCC_BRANCH)
+
 # Package name, that includes the GCC branch and UNIX timestamp
 PACKAGE_BASENAME = opt-toolchain-gcc
 PACKAGE_NAME = $(PACKAGE_BASENAME)-$(GCC_BRANCH)
@@ -56,3 +59,7 @@ override_dh_auto_build:
 override_dh_auto_install:
 	make install.only \
 	  DESTDIR=$(CURDIR)/debian/tmp
+
+override_dh_strip:
+	export PATH="$(CURDIR)/debian/tmp$(GCC_PREFIX)/bin:$$PATH" ; \
+	dh_strip
