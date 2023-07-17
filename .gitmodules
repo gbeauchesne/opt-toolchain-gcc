@@ -1,28 +1,28 @@
 [submodule "ext/cloog"]
 	path = ext/cloog
-	url = git://github.com/gbeauchesne/cloog.git
+	url = ../cloog.git
 	branch = toolchain/develop
 [submodule "ext/gmp"]
 	path = ext/gmp
-	url = git://github.com/gbeauchesne/gmp.git
+	url = ../gmp.git
 	branch = toolchain/develop
 [submodule "ext/isl"]
 	path = ext/isl
-	url = git://github.com/gbeauchesne/isl.git
+	url = ../isl.git
 	branch = toolchain/develop
 [submodule "ext/mpc"]
 	path = ext/mpc
-	url = git://github.com/gbeauchesne/mpc.git
+	url = ../mpc.git
 	branch = toolchain/develop
 [submodule "ext/mpfr"]
 	path = ext/mpfr
-	url = git://github.com/gbeauchesne/mpfr.git
+	url = ../mpfr.git
 	branch = toolchain/develop
 [submodule "ext/binutils"]
 	path = ext/binutils
-	url = git://github.com/gbeauchesne/binutils.git
+	url = ../binutils.git
 	branch = toolchain/develop
 [submodule "ext/gcc"]
 	path = ext/gcc
-	url = git://github.com/gbeauchesne/gcc.git
+	url = ../gcc.git
 	branch = trunk
