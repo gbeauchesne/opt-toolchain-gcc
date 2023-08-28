@@ -112,7 +112,7 @@ v_gcc = $(shell cat $(firstword $(wildcard \
 		$(git_submodulesdir)/gcc/gcc/BASE-VER)))
 
 # ... the corresponding GCC branch
-v_gcc_branch = $(subst $(c_space),.,$(wordlist 1, 2, $(subst ., ,$(v_gcc))))
+v_gcc_branch = $(subst $(c_space),.,$(wordlist 1, 1, $(subst ., ,$(v_gcc))))
 
 # The GNU Binary Utilities (binutils)
 v_binutils = $(shell sed -n '/^PACKAGE_VERSION=.$(p_version)./s//\1/p' \
