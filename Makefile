@@ -280,21 +280,25 @@ AUTORECONF_GENERATED_FILES := \
 
 dist.list.deps: fixup.git.submodules $(top_srcdir)/.timestamp
 dist.list: dist.list.deps
-	@echo .timestamp ;						 \
-	for d in . `$(GIT) submodule foreach --quiet 'echo $$path')`; do \
-	  (cd $$d && git ls-tree -r --name-only HEAD) | while read f; do \
-	    case $$f in (*.git*|*.cvs*) continue;; esac;		 \
-	    [ -d "$$d/$$f" ] && [ -n "`ls -A $$d/$$f`" ] && continue;	 \
-	    echo "$$d/$$f";						 \
-	    case "$$f" in						 \
-	      (*/Makefile.am|Makefile.am)				 \
-		gd="$$d/`dirname $$f`";					 \
-		$(foreach gf, $(AUTORECONF_GENERATED_FILES),		 \
-		  [ -f "$$gd/$(gf)" ] && echo "$$gd/$(gf)";)		 \
-		[ -d "$$gd/m4" ] && ls -1 "$$gd/m4"/*.m4;		 \
-		;;							 \
-	    esac;							 \
-	  done;								 \
+	@echo .timestamp ;						    \
+	for d in . `$(GIT) submodule foreach --quiet 'echo $$path')`; do    \
+	  (cd $$d && git ls-tree -r --name-only HEAD) | while read -r f; do \
+	    case $$f in (\"*\") f=$$(eval printf "$$f");; esac;		    \
+	    case $$f in							    \
+	      (*.git*|*.cvs*) continue;;				    \
+	      (\"*\") f=$$(eval printf "$ff");;				    \
+	    esac;							    \
+	    [ -d "$$d/$$f" ] && [ -n "`ls -A $$d/$$f`" ] && continue;	    \
+	    echo "$$d/$$f";						    \
+	    case "$$f" in						    \
+	      (*/Makefile.am|Makefile.am)				    \
+		gd="$$d/`dirname $$f`";					    \
+		$(foreach gf, $(AUTORECONF_GENERATED_FILES),		    \
+		  [ -f "$$gd/$(gf)" ] && echo "$$gd/$(gf)";)		    \
+		[ -d "$$gd/m4" ] && ls -1 "$$gd/m4"/*.m4;		    \
+		;;							    \
+	    esac;							    \
+	  done;								    \
 	done
 
 dist.file: dist.dirs dist.list.deps
