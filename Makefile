@@ -235,8 +235,8 @@ fixup.git.submodules: $(fixup_git_submodules_deps)
 $(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac
 	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ;	\
 	case $$repo in						\
-	  (binutils|gcc)	autoreconf=autoreconf2.64;;	\
-	  (*)			autoreconf=$(AUTORECONF);;	\
+	  (binutils)		autoreconf=autoreconf2.64;;	\
+	  (*)			autoreconf=autoreconf2.69;;	\
 	esac;							\
 	(cd $$dir && $$autoreconf -vif) &&			\
 	  find $$dir -name configure -exec touch {} \;
