@@ -66,6 +66,7 @@ git_submodules += cloog isl
 # List of submodules dependencies that need to be fixed-up or generated
 fixup_git_submodules_deps = $(git_submodules:%=$(git_submodulesdir)/%/configure)
 fixup_git_submodules_deps += $(git_submodulesdir)/gmp/doc/version.texi
+fixup_git_submodules_deps += $(git_submodulesdir)/gcc/gcc/distro-defaults.h
 
 # Linker options. Flag: do we use DT_GNU_HASH style by default?
 ld_hash_style = gnu
@@ -249,6 +250,9 @@ $(git_submodulesdir)/gmp/doc/version.texi:
 	@echo "@set EDITION $(v_gmp)" >> $@
 	@echo "@set VERSION $(v_gmp)" >> $@
 
+$(git_submodulesdir)/gcc/gcc/distro-defaults.h:
+	@rm -f $@
+	@touch $@
 
 # -----------------------------------------------------------------------------
 # --- Rules for generating a tarball                                        ---
