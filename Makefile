@@ -76,6 +76,7 @@ endif
 
 # GCC configure flags (default: build C & C++ support only)
 gcc_confflags = \
+	--with-pkgversion='$(PROJECT) $(v_gcc_pkgversion)' \
 	--prefix=$(prefix) \
 	--host=$(host_triplet) \
 	--build=$(build_triplet) \
@@ -114,6 +115,9 @@ v_gcc = $(shell cat $(firstword $(wildcard \
 
 # ... the corresponding GCC branch
 v_gcc_branch = $(subst $(c_space),.,$(wordlist 1, 1, $(subst ., ,$(v_gcc))))
+
+# ... the corresponding pkgversion
+v_gcc_pkgversion = $(v_gcc)~$(project_timestamp)
 
 # The GNU Binary Utilities (binutils)
 v_binutils = $(shell sed -n '/^PACKAGE_VERSION=.$(p_version)./s//\1/p' \
@@ -156,7 +160,7 @@ print.versions: fetch.git.submodules $(top_srcdir)/.timestamp
 	@echo "#"
 	@echo "# GCC toolchain versions"
 	@echo "#"
-	@printf "%-20s : %s\n" $(PROJECT) $(project_timestamp)
+	@printf "%-20s : %s\n" $(PROJECT) $(v_gcc_pkgversion)
 	@$(foreach repo, $(git_submodules), \
 		printf "%-20s : %s\n" $(repo) $(v_$(repo));)
 
