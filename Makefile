@@ -58,7 +58,8 @@ project_timestamp = $(shell cat $(top_srcdir)/.timestamp 2>/dev/null)
 git_submodulesdir = $(top_srcdir)/ext
 
 # The list of git submodules to use, with GCC first -- others are prerequisites
-git_submodules = gcc binutils
+git_submodules = gcc
+git_submodules += binutils
 git_submodules += gmp mpc mpfr
 git_submodules += cloog isl
 
@@ -112,7 +113,7 @@ v_gcc = $(shell cat $(firstword $(wildcard \
 # ... the corresponding GCC branch
 v_gcc_branch = $(subst $(c_space),.,$(wordlist 1, 2, $(subst ., ,$(v_gcc))))
 
-# The GNU Binary Utilities (GMP)
+# The GNU Binary Utilities (binutils)
 v_binutils = $(shell sed -n '/^PACKAGE_VERSION=.$(p_version)./s//\1/p' \
 	$(git_submodulesdir)/binutils/binutils/configure)
 
