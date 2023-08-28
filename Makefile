@@ -81,6 +81,7 @@ gcc_confflags = \
 	--target=$(target_triplet) \
 	--enable-languages=c,c++ \
 	--disable-multilib \
+	--disable-werror \
 	--with-linker-hash-style=$(ld_hash_style) \
 	--with-system-zlib
 gcc_confflags += $(EXTRA_CONFIGURE_FLAGS)
