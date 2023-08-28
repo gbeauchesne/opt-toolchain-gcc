@@ -14,7 +14,8 @@ Build-Depends: bison,
                make,
                patchutils,
                pkg-config,
-               texinfo
+               texinfo,
+               time
 Standards-Version: 3.7.2
 
 Package: @PACKAGE_NAME@
