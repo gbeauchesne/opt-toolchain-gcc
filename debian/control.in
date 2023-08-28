@@ -1,0 +1,29 @@
+Source: @PACKAGE_NAME@
+Section: devel
+Priority: optional
+Maintainer: Gwenole Beauchesne <gb.devel@gmail.com>
+Build-Depends: bison,
+               build-essential,
+               debhelper (>= 9),
+               dpkg-dev,
+               flex,
+               ghostscript,
+               libz-dev,
+               lsb-release,
+               m4,
+               make,
+               patchutils,
+               pkg-config,
+               texinfo
+Standards-Version: 3.7.2
+
+Package: @PACKAGE_NAME@
+Section: libs
+Architecture: amd64
+Provides: @PACKAGE_BASENAME@-@GCC_MAJOR_VERSION@ (= ${binary:Version}),
+          @PACKAGE_BASENAME@ (= ${binary:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GCC, the GNU Compiler Collection
+ This package contains the GNU Compiler Collection @GCC_BRANCH@.x for
+ C and C++ languages installed in /opt/toolchain/gcc-@GCC_BRANCH@/
+ .
