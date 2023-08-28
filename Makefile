@@ -322,7 +322,7 @@ DEB_GENERATED_FILES := \
 
 debsrc_dir  = $(top_srcdir)/..
 debsrc_name = $(PROJECT)-$(v_gcc_branch)_$(v_gcc)~$(project_timestamp).orig
-debsrc_file = $(debsrc_name).tar.gz
+debsrc_file = $(debsrc_name).tar.bz2
 
 deb.files: $(DEB_GENERATED_FILES)
 deb: deb.files $(debsrc_dir)/$(debsrc_file)
@@ -330,7 +330,7 @@ deb: deb.files $(debsrc_dir)/$(debsrc_file)
 
 debsrc.file.orig: $(debsrc_dir)/$(debsrc_file)
 $(debsrc_dir)/$(debsrc_file): dist.dirs dist.list.deps
-	$(MAKE) -s dist.list | tar zcf $(debsrc_dir)/$(debsrc_file) \
+	$(MAKE) -s dist.list | tar jcf $(debsrc_dir)/$(debsrc_file) \
 	  --exclude "*/debian/*" --no-recursion \
 	  --transform 's|^|$(debsrc_name)/|' -T -
 
