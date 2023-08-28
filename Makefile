@@ -331,8 +331,8 @@ deb: deb.files $(debsrc_dir)/$(debsrc_file)
 debsrc.file.orig: $(debsrc_dir)/$(debsrc_file)
 $(debsrc_dir)/$(debsrc_file): dist.dirs dist.list.deps
 	$(MAKE) -s dist.list | tar zcf $(debsrc_dir)/$(debsrc_file) \
-	  --no-recursion --transform 's|^|$(debsrc_name)/|' -T - \
-	  --exclude "*/debian/*"
+	  --exclude "*/debian/*" --no-recursion \
+	  --transform 's|^|$(debsrc_name)/|' -T -
 
 debian/%: debian/%.in debian/rules
 	./debian/rules $@
