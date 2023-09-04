@@ -201,7 +201,9 @@ $(objdir):
 
 configure.objs: $(objdir)/Makefile
 $(objdir)/Makefile: prepare
-	cd $(objdir) && ../$(srcdir)/configure $(gcc_confflags)
+	cd $(objdir) && \
+	CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
+	../$(srcdir)/configure $(gcc_confflags)
 
 build: configure
 	$(MAKE) build.only
