@@ -5,6 +5,14 @@ PROJECT := opt-toolchain-gcc
 srcdir = $(top_srcdir)/src
 objdir = $(top_srcdir)/obj.$(target_triplet)
 prefix = /opt/toolchain/gcc-$(v_gcc_branch)
+libdir = $(prefix)/lib
+
+RPATH_SYSTEM_LIBS = yes
+ifeq ($(RPATH_SYSTEM_LIBS),yes)
+slibdir = /usr/lib/gcc/$(target_triplet)/$(v_gcc_branch)
+else
+slibdir = $(libdir)
+endif
 
 # Determine the host operating system variant
 dist_release := $(shell lsb_release -cs 2>/dev/null)
@@ -85,6 +93,7 @@ gcc_confflags = \
 	--disable-multilib \
 	--disable-werror \
 	--with-linker-hash-style=$(ld_hash_style) \
+	--with-linker-rpath=$(slibdir) \
 	--with-system-zlib
 gcc_confflags += $(EXTRA_CONFIGURE_FLAGS)
 
@@ -217,9 +226,28 @@ build.only:
 
 install: build
 	$(MAKE) install.only
-install.only:
+install.only: install.only.fixes
+install.only.files:
 	$(MAKE) -C $(objdir) install DESTDIR=$(DESTDIR)
-
+install.only.fixes: install.only.files
+ifeq ($(RPATH_SYSTEM_LIBS),yes)
+	mkdir -p $(DESTDIR)$(slibdir)
+	(rel_libdir=$$(echo $(libdir)|				\
+	   awk -F '/' '{for (i=1;i<NF;i++) printf "../"}');	\
+	 cd $(DESTDIR)$(libdir); for f in lib*.so.[0-9].*; do	\
+	  soname=$$(objdump -p $$f 2>/dev/null |		\
+	    awk '/SONAME/{print $$2}'|sort -u);			\
+	  [ -n "$$soname" ] || continue;			\
+	  [ -f "$$soname" ] || continue;			\
+	  cp -p $$f $(DESTDIR)$(slibdir)/;			\
+	  rm -f $${soname}*;					\
+	  ln -s $${rel_libdir}$(slibdir)/$$soname $$soname;	\
+	  sodevname=$${soname%%.*}.so;				\
+	  rm -f $${sodevname};					\
+	  ln -s $$soname $$sodevname;				\
+	done)
+	(cd $(DESTDIR)$(slibdir) && /sbin/ldconfig -n .)
+endif
 
 # -----------------------------------------------------------------------------
 # --- Rules for preparing the git submodules                                ---
