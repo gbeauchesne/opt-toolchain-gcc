@@ -1,7 +1,9 @@
 #!/usr/bin/make -f
 
 DPKG_EXPORT_BUILDFLAGS = 1
+ifneq (,$(wildcard /usr/share/dpkg/buildflags.mk))
 include /usr/share/dpkg/buildflags.mk
+endif
 
 # Plain characters (comma, space)
 c_comma := ,

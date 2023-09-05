@@ -243,6 +243,7 @@ $(objdir):
 configure.objs: $(objdir)/Makefile
 $(objdir)/Makefile: prepare
 	cd $(objdir) && \
+	AR="$(AR)" RANLIB="$(RANLIB)" \
 	CC="$(CC)" CFLAGS="$(CFLAGS)" \
 	CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" \
 	LDFLAGS="$(LDFLAGS)" \
