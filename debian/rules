@@ -21,7 +21,7 @@ GCC_PREFIX = /opt/toolchain/gcc-$(GCC_BRANCH)
 PACKAGE_BASENAME = opt-toolchain-gcc
 PACKAGE_NAME = $(PACKAGE_BASENAME)-$(GCC_BRANCH)
 PACKAGE_VERSION = $(GCC_VERSION)~$(PACKAGE_TIMESTAMP)
-PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: \([0-9][0-9]*\)/s//\1/p')
+PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: [0-9][0-9.]*~\([0-9][0-9]*\)/s//\1/p')
 
 # Date of the day for auto-generated debian/changelog file
 TODAY := $(shell LC_ALL=C date +'%a, %d %b %Y %X %z')
