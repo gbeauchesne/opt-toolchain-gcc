@@ -229,7 +229,9 @@ install: build
 install.only: install.only.fixes
 install.only.files:
 	$(MAKE) -C $(objdir) install DESTDIR=$(DESTDIR)
-install.only.fixes: install.only.files
+install.only.fixes: install.fix.rpath install.fix.libtool
+
+install.fix.rpath: install.only.files
 ifeq ($(RPATH_SYSTEM_LIBS),yes)
 	mkdir -p $(DESTDIR)$(slibdir)
 	(rel_libdir=$$(echo $(libdir)|				\
@@ -248,6 +250,11 @@ ifeq ($(RPATH_SYSTEM_LIBS),yes)
 	done)
 	(cd $(DESTDIR)$(slibdir) && /sbin/ldconfig -n .)
 endif
+
+install.fix.libtool: install.only.files
+	rm -f $(DESTDIR)$(libdir)/gcc/$(target_triplet)/$(v_gcc)/plugin/*.la
+	rm -f $(DESTDIR)$(prefix)/libexec/gcc/$(target_triplet)/$(v_gcc)/*.la
+	rm -f $(DESTDIR)$(libdir)/*.la
 
 # -----------------------------------------------------------------------------
 # --- Rules for preparing the git submodules                                ---
