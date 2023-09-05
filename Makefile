@@ -269,17 +269,17 @@ $(git_submodulesdir)/%/configure.ac:
 
 clean.git.submodules: $(git_submodules:%=clean.git.submodule.%)
 clean.git.submodule.%:
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ; \
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo"; \
 	[ -d $$dir ] && (cd $$dir && $(GIT) clean -dfx)
 
 reset.git.submodules: $(git_submodules:%=reset.git.submodule.%)
 reset.git.submodule.%: clean.git.submodule.%
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ; \
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo"; \
 	[ -d $$dir ] && (cd $$dir && $(GIT) reset --hard)
 
 fixup.git.submodules: $(fixup_git_submodules_deps)
 $(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ;	\
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo";	\
 	case $$repo in						\
 	  (binutils|gcc)	autoreconf=autoreconf2.64;;	\
 	  (*)			autoreconf=$(AUTORECONF);;	\
