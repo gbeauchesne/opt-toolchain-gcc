@@ -17,6 +17,27 @@ slibdir = /usr/lib/gcc/$(target_triplet)/$(v_gcc_branch)
 endif
 endif
 
+# Ensure suitable autotools are available
+autotools_prefix	= $(objdir)/autotools
+autotools_deps		=
+
+autoconf_version	= 2.69
+autoreconf2.69_exe	:= $(shell which autoreconf)
+ifneq ($(shell $(autoreconf2.69_exe) --version|sed -n '/^auto.* \([0-9][0-9]*\)/s//\1/p'),$(autoconf_version))
+autoreconf2.69_exe	:= $(shell which autoreconf$(autoconf_version))
+endif
+ifeq (,$(autoreconf2.69_exe))
+autoreconf2.69_exe	= $(autotools_prefix)/bin/autoreconf
+endif
+autotools_deps		+= $(autoreconf2.69_exe)
+
+automake_version	= 1.16.5
+automake_exe		:= $(shell which automake-$(automake_version))
+ifeq (,$(automake_exe))
+automake_exe		= $(autotools_prefix)/bin/automake
+endif
+autotools_deps		+= $(automake_exe)
+
 # Determine the host operating system variant
 dist_release := $(shell lsb_release -cs 2>/dev/null)
 
@@ -55,9 +76,6 @@ target_triplet = $(TARGET_ARCH)-$(TARGET_VENDOR)-$(TARGET_OS)
 
 # The `git' program
 GIT = git
-
-# The `autoreconf' program
-AUTORECONF = autoreconf
 
 # Program for creating symbolic links
 LN_S = ln -s
@@ -159,7 +177,6 @@ v_cloog = $(shell sed -n '1s/version: $(p_version)/\1/p' \
 # The Integer Set Library (ISL)
 v_isl = $(shell sed -n '1s/version: $(p_version)/\1/p' \
 	$(git_submodulesdir)/isl/ChangeLog)
-
 
 # -----------------------------------------------------------------------------
 # --- Rules for configuring, building and installing the toolchain          ---
@@ -278,12 +295,15 @@ reset.git.submodule.%: clean.git.submodule.%
 	[ -d $$dir ] && (cd $$dir && $(GIT) reset --hard)
 
 fixup.git.submodules: $(fixup_git_submodules_deps)
-$(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac
+$(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac $(autotools_deps)
 	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo";	\
 	case $$repo in						\
-	  (binutils|gcc)	autoreconf=autoreconf2.64;;	\
-	  (*)			autoreconf=$(AUTORECONF);;	\
+	  (binutils|gcc) autoreconf=$$(which autoreconf2.64);;	\
+	  (*)		 autoreconf=$(autoreconf2.69_exe);;	\
 	esac;							\
+	autoreconf=$$(readlink -f $$autoreconf);		\
+	export AUTOMAKE="$$(readlink -f $(automake_exe))";	\
+	export ACLOCAL="$$(readlink -f $$(dirname $(automake_exe))/aclocal) -I /usr/share/aclocal"; \
 	(cd $$dir && $$autoreconf -vif) &&			\
 	  find $$dir -name configure -exec touch {} \;
 
@@ -293,6 +313,24 @@ $(git_submodulesdir)/gmp/doc/version.texi:
 	@echo "@set EDITION $(v_gmp)" >> $@
 	@echo "@set VERSION $(v_gmp)" >> $@
 
+
+
+# -----------------------------------------------------------------------------
+# --- Rules for building missing tools                                      ---
+# -----------------------------------------------------------------------------
+
+prepare.autotools: $(autotools_deps)
+
+$(autotools_prefix)/bin/autoreconf: $(autotools_prefix)/bin/autoconf
+$(autotools_prefix)/bin/%: $(autotools_prefix)/%-*/configure
+	(cd $$(dirname $<) &&					\
+	 ./configure --prefix=$(CURDIR)/$(autotools_prefix) &&	\
+	 $(MAKE) &&						\
+	 $(MAKE) install)
+$(autotools_prefix)/%/configure: $(top_srcdir)/ext/files/%.tar.gz
+	(mkdir -p $(autotools_prefix) &&			\
+	 tar zxf $< -C $(autotools_prefix) &&			\
+	 touch $@)
 
 # -----------------------------------------------------------------------------
 # --- Rules for generating a tarball                                        ---
