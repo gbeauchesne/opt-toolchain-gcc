@@ -3,6 +3,15 @@
 DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/buildflags.mk
 
+dist_release := $(shell lsb_release -rs 2>/dev/null)
+
+DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-linker-build-id
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-gnu-unique-object
+ifeq ($(shell dpkg --compare-versions $(dist_release) '>=' 9 && echo yes),yes)
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-default-pie
+endif
+
 # Plain characters (comma, space)
 c_comma := ,
 c_empty :=
