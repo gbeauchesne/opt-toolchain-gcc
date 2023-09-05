@@ -216,7 +216,9 @@ $(objdir):
 configure.objs: $(objdir)/Makefile
 $(objdir)/Makefile: prepare
 	cd $(objdir) && \
-	CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" \
+	CC="$(CC)" CFLAGS="$(CFLAGS)" \
+	CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" \
+	LDFLAGS="$(LDFLAGS)" \
 	../$(srcdir)/configure $(gcc_confflags)
 
 build: configure
