@@ -21,7 +21,7 @@
 [submodule "ext/binutils"]
 	path = ext/binutils
 	url = ../binutils.git
-	branch = toolchain/develop
+	branch = toolchain/binutils-2.40-branch
 [submodule "ext/gcc"]
 	path = ext/gcc
 	url = ../gcc.git
