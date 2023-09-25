@@ -5,7 +5,7 @@
 [submodule "ext/gmp"]
 	path = ext/gmp
 	url = ../gmp.git
-	branch = toolchain/develop
+	branch = toolchain/gmp-6.2-branch
 [submodule "ext/isl"]
 	path = ext/isl
 	url = ../isl.git
@@ -25,4 +25,4 @@
 [submodule "ext/gcc"]
 	path = ext/gcc
 	url = ../gcc.git
-	branch = trunk
+	branch = toolchain/gcc-13-branch
