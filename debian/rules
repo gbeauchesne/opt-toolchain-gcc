@@ -1,7 +1,9 @@
 #!/usr/bin/make -f
 
 DPKG_EXPORT_BUILDFLAGS = 1
+ifneq (,$(wildcard /usr/share/dpkg/buildflags.mk))
 include /usr/share/dpkg/buildflags.mk
+endif
 
 dist_release := $(shell lsb_release -rs 2>/dev/null)
 
@@ -30,6 +32,8 @@ GCC_PREFIX = /opt/toolchain/gcc-$(GCC_BRANCH)
 # Recent enough compilers are required (C++11 support)
 ifneq ($(shell dpkg --compare-versions \
   $(shell $(CXX) -dumpversion) '>=' $(GCC_MIN_VERSION) && echo yes), yes)
+export AR = /opt/toolchain/gcc-6.4/bin/ar
+export RANLIB = /opt/toolchain/gcc-6.4/bin/ranlib
 export CC = /opt/toolchain/gcc-6.4/bin/gcc
 export CXX = /opt/toolchain/gcc-6.4/bin/g++
 endif
