@@ -23,8 +23,6 @@ Standards-Version: 3.7.2
 Package: @PACKAGE_NAME@
 Section: libs
 Architecture: amd64
-Provides: @PACKAGE_BASENAME@-@GCC_MAJOR_VERSION@ (= ${binary:Version}),
-          @PACKAGE_BASENAME@ (= ${binary:Version})
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: GCC, the GNU Compiler Collection
  This package contains the GNU Compiler Collection @GCC_BRANCH@.x for
