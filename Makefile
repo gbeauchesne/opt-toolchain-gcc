@@ -171,8 +171,13 @@ v_mpfr = $(shell sed -n '/.*MPFR_VERSION_STRING  *"$(p_version).*"/s//\1/p' \
 	$(git_submodulesdir)/mpfr/src/mpfr.h)
 
 # The Chunk Loop Generator (CLooG)
-v_cloog = $(shell sed -n '1s/version: $(p_version)/\1/p' \
-	$(git_submodulesdir)/cloog/ChangeLog)
+v_cloog_mj = $(shell sed -n '/^m4_define.*version_major.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog_mn = $(shell sed -n '/^m4_define.*version_minor.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog_mc = $(shell sed -n '/^m4_define.*version_revision.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog = $(v_cloog_mj).$(v_cloog_mn).$(v_cloog_mc)
 
 # The Integer Set Library (ISL)
 v_isl = $(shell sed -n '1s/version: $(p_version)/\1/p' \
