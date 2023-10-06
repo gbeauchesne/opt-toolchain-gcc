@@ -5,6 +5,35 @@ PROJECT := opt-toolchain-gcc
 srcdir = $(top_srcdir)/src
 objdir = $(top_srcdir)/obj.$(target_triplet)
 prefix = /opt/toolchain/gcc-$(v_gcc_branch)
+libdir = $(prefix)/lib
+
+RPATH_SYSTEM_LIBS = yes
+ifeq ($(RPATH_SYSTEM_LIBS),yes)
+slibdir = /usr/lib/gcc/$(target_triplet)/$(v_gcc_branch)
+else
+slibdir = $(libdir)
+endif
+
+# Ensure suitable autotools are available
+autotools_prefix	= $(objdir)/autotools
+autotools_deps		=
+
+autoconf_version	= 2.69
+autoreconf2.69_exe	:= $(shell which autoreconf)
+ifneq ($(shell $(autoreconf2.69_exe) --version|sed -n '/^auto.* \([0-9][0-9]*\)/s//\1/p'),$(autoconf_version))
+autoreconf2.69_exe	:= $(shell which autoreconf$(autoconf_version))
+endif
+ifeq (,$(autoreconf2.69_exe))
+autoreconf2.69_exe	= $(autotools_prefix)/bin/autoreconf
+endif
+autotools_deps		+= $(autoreconf2.69_exe)
+
+automake_version	= 1.16.5
+automake_exe		:= $(shell which automake-$(automake_version))
+ifeq (,$(automake_exe))
+automake_exe		= $(autotools_prefix)/bin/automake
+endif
+autotools_deps		+= $(automake_exe)
 
 # Determine the host operating system variant
 dist_release := $(shell lsb_release -cs 2>/dev/null)
@@ -45,9 +74,6 @@ target_triplet = $(TARGET_ARCH)-$(TARGET_VENDOR)-$(TARGET_OS)
 # The `git' program
 GIT = git
 
-# The `autoreconf' program
-AUTORECONF = autoreconf
-
 # Program for creating symbolic links
 LN_S = ln -s
 
@@ -85,6 +111,7 @@ gcc_confflags = \
 	--disable-multilib \
 	--disable-werror \
 	--with-linker-hash-style=$(ld_hash_style) \
+	--with-linker-rpath=$(slibdir) \
 	--with-system-zlib
 gcc_confflags += $(EXTRA_CONFIGURE_FLAGS)
 
@@ -151,7 +178,6 @@ v_cloog = $(shell sed -n '1s/version: $(p_version)/\1/p' \
 v_isl = $(shell sed -n '1s/version: $(p_version)/\1/p' \
 	$(git_submodulesdir)/isl/ChangeLog)
 
-
 # -----------------------------------------------------------------------------
 # --- Rules for configuring, building and installing the toolchain          ---
 # -----------------------------------------------------------------------------
@@ -206,7 +232,11 @@ $(objdir):
 
 configure.objs: $(objdir)/Makefile
 $(objdir)/Makefile: prepare
-	cd $(objdir) && ../$(srcdir)/configure $(gcc_confflags)
+	cd $(objdir) && \
+	CC="$(CC)" CFLAGS="$(CFLAGS)" \
+	CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" \
+	LDFLAGS="$(LDFLAGS)" \
+	../$(srcdir)/configure $(gcc_confflags)
 
 build: configure
 	$(MAKE) build.only
@@ -215,9 +245,35 @@ build.only:
 
 install: build
 	$(MAKE) install.only
-install.only:
+install.only: install.only.fixes
+install.only.files:
 	$(MAKE) -C $(objdir) install DESTDIR=$(DESTDIR)
+install.only.fixes: install.fix.rpath install.fix.libtool
 
+install.fix.rpath: install.only.files
+ifeq ($(RPATH_SYSTEM_LIBS),yes)
+	mkdir -p $(DESTDIR)$(slibdir)
+	(rel_libdir=$$(echo $(libdir)|				\
+	   awk -F '/' '{for (i=1;i<NF;i++) printf "../"}');	\
+	 cd $(DESTDIR)$(libdir); for f in lib*.so.[0-9].*; do	\
+	  soname=$$(objdump -p $$f 2>/dev/null |		\
+	    awk '/SONAME/{print $$2}'|sort -u);			\
+	  [ -n "$$soname" ] || continue;			\
+	  [ -f "$$soname" ] || continue;			\
+	  cp -p $$f $(DESTDIR)$(slibdir)/;			\
+	  rm -f $${soname}*;					\
+	  ln -s $${rel_libdir}$(slibdir)/$$soname $$soname;	\
+	  sodevname=$${soname%%.*}.so;				\
+	  rm -f $${sodevname};					\
+	  ln -s $$soname $$sodevname;				\
+	done)
+	(cd $(DESTDIR)$(slibdir) && /sbin/ldconfig -n .)
+endif
+
+install.fix.libtool: install.only.files
+	rm -f $(DESTDIR)$(libdir)/gcc/$(target_triplet)/$(v_gcc)/plugin/*.la
+	rm -f $(DESTDIR)$(prefix)/libexec/gcc/$(target_triplet)/$(v_gcc)/*.la
+	rm -f $(DESTDIR)$(libdir)/*.la
 
 # -----------------------------------------------------------------------------
 # --- Rules for preparing the git submodules                                ---
@@ -230,21 +286,23 @@ $(git_submodulesdir)/%/configure.ac:
 
 clean.git.submodules: $(git_submodules:%=clean.git.submodule.%)
 clean.git.submodule.%:
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ; \
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo"; \
 	[ -d $$dir ] && (cd $$dir && $(GIT) clean -dfx)
 
 reset.git.submodules: $(git_submodules:%=reset.git.submodule.%)
 reset.git.submodule.%: clean.git.submodule.%
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ; \
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo"; \
 	[ -d $$dir ] && (cd $$dir && $(GIT) reset --hard)
 
 fixup.git.submodules: $(fixup_git_submodules_deps)
-$(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ;	\
+$(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac $(autotools_deps)
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo";	\
 	case $$repo in						\
-	  (binutils)		autoreconf=autoreconf2.64;;	\
-	  (*)			autoreconf=autoreconf2.69;;	\
+	  (*)		autoreconf=$(autoreconf2.69_exe);;	\
 	esac;							\
+	autoreconf=$$(readlink -f $$autoreconf);		\
+	export AUTOMAKE="$$(readlink -f $(automake_exe))";	\
+	export ACLOCAL="$$(readlink -f $$(dirname $(automake_exe))/aclocal) -I /usr/share/aclocal"; \
 	(cd $$dir && $$autoreconf -vif) &&			\
 	  find $$dir -name configure -exec touch {} \;
 
@@ -257,6 +315,24 @@ $(git_submodulesdir)/gmp/doc/version.texi:
 $(git_submodulesdir)/gcc/gcc/distro-defaults.h:
 	@rm -f $@
 	@touch $@
+
+
+# -----------------------------------------------------------------------------
+# --- Rules for building missing tools                                      ---
+# -----------------------------------------------------------------------------
+
+prepare.autotools: $(autotools_deps)
+
+$(autotools_prefix)/bin/autoreconf: $(autotools_prefix)/bin/autoconf
+$(autotools_prefix)/bin/%: $(autotools_prefix)/%-*/configure
+	(cd $$(dirname $<) &&					\
+	 ./configure --prefix=$(CURDIR)/$(autotools_prefix) &&	\
+	 $(MAKE) &&						\
+	 $(MAKE) install)
+$(autotools_prefix)/%/configure: $(top_srcdir)/ext/files/%.tar.gz
+	(mkdir -p $(autotools_prefix) &&			\
+	 tar zxf $< -C $(autotools_prefix) &&			\
+	 touch $@)
 
 # -----------------------------------------------------------------------------
 # --- Rules for generating a tarball                                        ---
