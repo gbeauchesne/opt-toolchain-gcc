@@ -5,6 +5,7 @@ Maintainer: Gwenole Beauchesne <gb.devel@gmail.com>
 Build-Depends: bison,
                build-essential,
                debhelper (>= 9),
+               dejagnu,
                dh-autoreconf,
                flex,
                g++ (>= 4:@GCC_MIN_VERSION@) | opt-toolchain-gcc-6.4,
