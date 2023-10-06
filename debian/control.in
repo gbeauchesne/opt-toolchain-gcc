@@ -3,9 +3,11 @@ Section: devel
 Priority: optional
 Maintainer: Gwenole Beauchesne <gb.devel@gmail.com>
 Build-Depends: autoconf (= 2.64) | autoconf2.64,
+               autogen,
                bison,
                build-essential,
                debhelper (>= 9),
+               dejagnu,
                dh-autoreconf,
                dpkg-dev (>= 1.15.12),
                flex,

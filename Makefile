@@ -254,6 +254,11 @@ build: configure
 build.only:
 	$(MAKE) -C $(objdir) $(gcc_makeflags)
 
+check: build
+	$(MAKE) check.only
+check.only:
+	$(MAKE) -C $(objdir) $(gcc_makeflags) check
+
 install: build
 	$(MAKE) install.only
 install.only: install.only.fixes
