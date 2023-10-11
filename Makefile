@@ -214,6 +214,7 @@ prepare.srcs: fixup.git.submodules $(git_submodules:%=$(srcdir)/%/configure)
 $(srcdir)/gcc/configure: $(git_submodulesdir)/gcc/gcc/configure
 	repo="gcc" ; \
 	for f in $$(cd $(git_submodulesdir)/$$repo && ls); do \
+		case $$f in (libcilkrts|libmpx) continue;; esac; \
 		$(LN_S) -f ../$(git_submodulesdir)/$$repo/$$f $(srcdir)/ ; \
 	done
 $(srcdir)/binutils/configure: $(git_submodulesdir)/binutils/binutils/configure
