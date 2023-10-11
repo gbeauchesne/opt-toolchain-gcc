@@ -5,6 +5,8 @@ ifneq (,$(wildcard /usr/share/dpkg/buildflags.mk))
 include /usr/share/dpkg/buildflags.mk
 endif
 
+export USE_RPATH = no
+
 dist_release := $(shell lsb_release -rs 2>/dev/null)
 
 DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
