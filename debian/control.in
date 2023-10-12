@@ -2,8 +2,10 @@ Source: @PACKAGE_NAME@
 Section: devel
 Priority: optional
 Maintainer: Gwenole Beauchesne <gb.devel@gmail.com>
-Build-Depends: bison,
+Build-Depends: autogen,
+               bison,
                build-essential,
+               chrpath,
                debhelper (>= 9),
                dejagnu,
                dh-autoreconf,
@@ -13,9 +15,6 @@ Build-Depends: bison,
                git,
                libz-dev,
                lsb-release,
-               m4,
-               make,
-               patchutils,
                pkg-config,
                texinfo,
                time
