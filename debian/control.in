@@ -2,7 +2,8 @@ Source: @PACKAGE_NAME@
 Section: devel
 Priority: optional
 Maintainer: Gwenole Beauchesne <gb.devel@gmail.com>
-Build-Depends: bison,
+Build-Depends: autoconf (= 2.64) | autoconf2.64,
+               bison,
                build-essential,
                debhelper (>= 9),
                dh-autoreconf,
