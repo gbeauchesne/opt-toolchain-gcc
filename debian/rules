@@ -1,5 +1,18 @@
 #!/usr/bin/make -f
 
+DPKG_EXPORT_BUILDFLAGS = 1
+ifneq (,$(wildcard /usr/share/dpkg/buildflags.mk))
+include /usr/share/dpkg/buildflags.mk
+endif
+
+export USE_RPATH = no
+
+dist_release := $(shell lsb_release -rs 2>/dev/null)
+
+DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-linker-build-id
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-gnu-unique-object
+
 # Plain characters (comma, space)
 c_comma := ,
 c_empty :=
@@ -9,7 +22,7 @@ c_space := $(c_empty) $(c_empty)
 GCC_VERSION := $(shell $(MAKE)|sed -n '/^gcc.*: \([0-9][0-9.]*\)/s//\1/p')
 GCC_MAJOR_VERSION := $(word 1,$(subst ., ,$(GCC_VERSION)))
 GCC_MINOR_VERSION := $(word 2,$(subst ., ,$(GCC_VERSION)))
-GCC_BRANCH := $(GCC_MAJOR_VERSION).$(GCC_MINOR_VERSION)
+GCC_BRANCH := $(GCC_MAJOR_VERSION)
 
 # GCC installation directory
 GCC_PREFIX = /opt/toolchain/gcc-$(GCC_BRANCH)
@@ -18,7 +31,7 @@ GCC_PREFIX = /opt/toolchain/gcc-$(GCC_BRANCH)
 PACKAGE_BASENAME = opt-toolchain-gcc
 PACKAGE_NAME = $(PACKAGE_BASENAME)-$(GCC_BRANCH)
 PACKAGE_VERSION = $(GCC_VERSION)~$(PACKAGE_TIMESTAMP)
-PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: \([0-9][0-9]*\)/s//\1/p')
+PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: [0-9][0-9.]*~\([0-9][0-9]*\)/s//\1/p')
 
 # Date of the day for auto-generated debian/changelog file
 TODAY := $(shell LC_ALL=C date +'%a, %d %b %Y %X %z')
@@ -55,6 +68,11 @@ override_dh_auto_configure: $(GENERATED_FILES)
 
 override_dh_auto_build:
 	make build.only
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	make check.only
+endif
 
 override_dh_auto_install:
 	make install.only \

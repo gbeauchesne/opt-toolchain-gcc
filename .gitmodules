@@ -5,7 +5,7 @@
 [submodule "ext/gmp"]
 	path = ext/gmp
 	url = ../gmp.git
-	branch = toolchain/develop
+	branch = toolchain/gmp-6.1-branch
 [submodule "ext/isl"]
 	path = ext/isl
 	url = ../isl.git
@@ -13,7 +13,7 @@
 [submodule "ext/mpc"]
 	path = ext/mpc
 	url = ../mpc.git
-	branch = toolchain/develop
+	branch = toolchain/mpc-1.0-branch
 [submodule "ext/mpfr"]
 	path = ext/mpfr
 	url = ../mpfr.git
@@ -21,8 +21,8 @@
 [submodule "ext/binutils"]
 	path = ext/binutils
 	url = ../binutils.git
-	branch = toolchain/develop
+	branch = toolchain/binutils-2.28-branch
 [submodule "ext/gcc"]
 	path = ext/gcc
 	url = ../gcc.git
-	branch = trunk
+	branch = toolchain/gcc-6-branch

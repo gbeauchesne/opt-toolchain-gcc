@@ -5,6 +5,38 @@ PROJECT := opt-toolchain-gcc
 srcdir = $(top_srcdir)/src
 objdir = $(top_srcdir)/obj.$(target_triplet)
 prefix = /opt/toolchain/gcc-$(v_gcc_branch)
+libdir = $(prefix)/lib
+
+USE_RPATH ?= yes
+
+slibdir = $(libdir)
+ifeq ($(USE_RPATH),yes)
+RPATH_SYSTEM_LIBS ?= yes
+ifeq ($(RPATH_SYSTEM_LIBS),yes)
+slibdir = /usr/lib/gcc/$(target_triplet)/$(v_gcc_branch)
+endif
+endif
+
+# Ensure suitable autotools are available
+autotools_prefix	= $(objdir)/autotools
+autotools_deps		=
+
+autoconf_version	= 2.69
+autoreconf2.69_exe	:= $(shell which autoreconf)
+ifneq ($(shell $(autoreconf2.69_exe) --version|sed -n '/^auto.* \([0-9][0-9]*\)/s//\1/p'),$(autoconf_version))
+autoreconf2.69_exe	:= $(shell which autoreconf$(autoconf_version))
+endif
+ifeq (,$(autoreconf2.69_exe))
+autoreconf2.69_exe	= $(autotools_prefix)/bin/autoreconf
+endif
+autotools_deps		+= $(autoreconf2.69_exe)
+
+automake_version	= 1.16.5
+automake_exe		:= $(shell which automake-$(automake_version))
+ifeq (,$(automake_exe))
+automake_exe		= $(autotools_prefix)/bin/automake
+endif
+autotools_deps		+= $(automake_exe)
 
 # Determine the host operating system variant
 dist_release := $(shell lsb_release -cs 2>/dev/null)
@@ -45,9 +77,6 @@ target_triplet = $(TARGET_ARCH)-$(TARGET_VENDOR)-$(TARGET_OS)
 # The `git' program
 GIT = git
 
-# The `autoreconf' program
-AUTORECONF = autoreconf
-
 # Program for creating symbolic links
 LN_S = ln -s
 
@@ -58,7 +87,8 @@ project_timestamp = $(shell cat $(top_srcdir)/.timestamp 2>/dev/null)
 git_submodulesdir = $(top_srcdir)/ext
 
 # The list of git submodules to use, with GCC first -- others are prerequisites
-git_submodules = gcc binutils
+git_submodules = gcc
+git_submodules += binutils
 git_submodules += gmp mpc mpfr
 git_submodules += cloog isl
 
@@ -74,14 +104,19 @@ endif
 
 # GCC configure flags (default: build C & C++ support only)
 gcc_confflags = \
+	--with-pkgversion='$(PROJECT) $(v_gcc_pkgversion)' \
 	--prefix=$(prefix) \
 	--host=$(host_triplet) \
 	--build=$(build_triplet) \
 	--target=$(target_triplet) \
 	--enable-languages=c,c++ \
 	--disable-multilib \
+	--disable-werror \
 	--with-linker-hash-style=$(ld_hash_style) \
 	--with-system-zlib
+ifeq ($(USE_RPATH),yes)
+gcc_confflags += --with-linker-rpath=$(slibdir)
+endif
 gcc_confflags += $(EXTRA_CONFIGURE_FLAGS)
 
 # The number of allowed parallel jobs
@@ -110,9 +145,12 @@ v_gcc = $(shell cat $(firstword $(wildcard \
 		$(git_submodulesdir)/gcc/gcc/BASE-VER)))
 
 # ... the corresponding GCC branch
-v_gcc_branch = $(subst $(c_space),.,$(wordlist 1, 2, $(subst ., ,$(v_gcc))))
+v_gcc_branch = $(subst $(c_space),.,$(wordlist 1, 1, $(subst ., ,$(v_gcc))))
 
-# The GNU Binary Utilities (GMP)
+# ... the corresponding pkgversion
+v_gcc_pkgversion = $(v_gcc)~$(project_timestamp)
+
+# The GNU Binary Utilities (binutils)
 v_binutils = $(shell sed -n '/^PACKAGE_VERSION=.$(p_version)./s//\1/p' \
 	$(git_submodulesdir)/binutils/binutils/configure)
 
@@ -137,13 +175,17 @@ v_mpfr = $(shell sed -n '/.*MPFR_VERSION_STRING  *"$(p_version).*"/s//\1/p' \
 	$(git_submodulesdir)/mpfr/src/mpfr.h)
 
 # The Chunk Loop Generator (CLooG)
-v_cloog = $(shell sed -n '1s/version: $(p_version)/\1/p' \
-	$(git_submodulesdir)/cloog/ChangeLog)
+v_cloog_mj = $(shell sed -n '/^m4_define.*version_major.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog_mn = $(shell sed -n '/^m4_define.*version_minor.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog_mc = $(shell sed -n '/^m4_define.*version_revision.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog = $(v_cloog_mj).$(v_cloog_mn).$(v_cloog_mc)
 
 # The Integer Set Library (ISL)
 v_isl = $(shell sed -n '1s/version: $(p_version)/\1/p' \
 	$(git_submodulesdir)/isl/ChangeLog)
-
 
 # -----------------------------------------------------------------------------
 # --- Rules for configuring, building and installing the toolchain          ---
@@ -153,7 +195,7 @@ print.versions: fetch.git.submodules $(top_srcdir)/.timestamp
 	@echo "#"
 	@echo "# GCC toolchain versions"
 	@echo "#"
-	@printf "%-20s : %s\n" $(PROJECT) $(project_timestamp)
+	@printf "%-20s : %s\n" $(PROJECT) $(v_gcc_pkgversion)
 	@$(foreach repo, $(git_submodules), \
 		printf "%-20s : %s\n" $(repo) $(v_$(repo));)
 
@@ -176,12 +218,13 @@ prepare.srcs: fixup.git.submodules $(git_submodules:%=$(srcdir)/%/configure)
 $(srcdir)/gcc/configure: $(git_submodulesdir)/gcc/gcc/configure
 	repo="gcc" ; \
 	for f in $$(cd $(git_submodulesdir)/$$repo && ls); do \
+		case $$f in (libcilkrts|libmpx) continue;; esac; \
 		$(LN_S) -f ../$(git_submodulesdir)/$$repo/$$f $(srcdir)/ ; \
 	done
 $(srcdir)/binutils/configure: $(git_submodulesdir)/binutils/binutils/configure
 	repo="binutils" ; \
 	for f in $$(cd $(git_submodulesdir)/$$repo && ls); do \
-		case $$f in (gdb) continue;; esac; \
+		case $$f in (gdb|gdbserver|gdbsupport|gnulib|libbacktrace|libdecnumber|readline|sim) continue;; esac; \
 		[ -e "$(srcdir)/$$f" ] || \
 		$(LN_S) ../$(git_submodulesdir)/$$repo/$$f $(srcdir)/ ; \
 	done
@@ -199,18 +242,54 @@ $(objdir):
 
 configure.objs: $(objdir)/Makefile
 $(objdir)/Makefile: prepare
-	cd $(objdir) && ../$(srcdir)/configure $(gcc_confflags)
+	cd $(objdir) && \
+	AR="$(AR)" RANLIB="$(RANLIB)" \
+	CC="$(CC)" CFLAGS="$(CFLAGS)" \
+	CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" \
+	LDFLAGS="$(LDFLAGS)" \
+	../$(srcdir)/configure $(gcc_confflags)
 
 build: configure
 	$(MAKE) build.only
 build.only:
 	$(MAKE) -C $(objdir) $(gcc_makeflags)
 
+check: build
+	$(MAKE) check.only
+check.only:
+	$(MAKE) -C $(objdir) $(gcc_makeflags) check
+
 install: build
 	$(MAKE) install.only
-install.only:
+install.only: install.only.fixes
+install.only.files:
 	$(MAKE) -C $(objdir) install DESTDIR=$(DESTDIR)
+install.only.fixes: install.fix.rpath install.fix.libtool
 
+install.fix.rpath: install.only.files
+ifeq ($(RPATH_SYSTEM_LIBS),yes)
+	mkdir -p $(DESTDIR)$(slibdir)
+	(rel_libdir=$$(echo $(libdir)|				\
+	   awk -F '/' '{for (i=1;i<NF;i++) printf "../"}');	\
+	 cd $(DESTDIR)$(libdir); for f in lib*.so.[0-9].*; do	\
+	  soname=$$(objdump -p $$f 2>/dev/null |		\
+	    awk '/SONAME/{print $$2}'|sort -u);			\
+	  [ -n "$$soname" ] || continue;			\
+	  [ -f "$$soname" ] || continue;			\
+	  cp -p $$f $(DESTDIR)$(slibdir)/;			\
+	  rm -f $${soname}*;					\
+	  ln -s $${rel_libdir}$(slibdir)/$$soname $$soname;	\
+	  sodevname=$${soname%%.*}.so;				\
+	  rm -f $${sodevname};					\
+	  ln -s $$soname $$sodevname;				\
+	done)
+	(cd $(DESTDIR)$(slibdir) && /sbin/ldconfig -n .)
+endif
+
+install.fix.libtool: install.only.files
+	rm -f $(DESTDIR)$(libdir)/gcc/$(target_triplet)/$(v_gcc)/plugin/*.la
+	rm -f $(DESTDIR)$(prefix)/libexec/gcc/$(target_triplet)/$(v_gcc)/*.la
+	rm -f $(DESTDIR)$(libdir)/*.la
 
 # -----------------------------------------------------------------------------
 # --- Rules for preparing the git submodules                                ---
@@ -223,21 +302,24 @@ $(git_submodulesdir)/%/configure.ac:
 
 clean.git.submodules: $(git_submodules:%=clean.git.submodule.%)
 clean.git.submodule.%:
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ; \
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo"; \
 	[ -d $$dir ] && (cd $$dir && $(GIT) clean -dfx)
 
 reset.git.submodules: $(git_submodules:%=reset.git.submodule.%)
 reset.git.submodule.%: clean.git.submodule.%
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ; \
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo"; \
 	[ -d $$dir ] && (cd $$dir && $(GIT) reset --hard)
 
 fixup.git.submodules: $(fixup_git_submodules_deps)
-$(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac
-	repo="$(*F)" dir="$(git_submodulesdir)/$$repo" ;	\
+$(git_submodulesdir)/%/configure: $(git_submodulesdir)/%/configure.ac $(autotools_deps)
+	repo="$(*F)"; dir="$(git_submodulesdir)/$$repo";	\
 	case $$repo in						\
-	  (binutils|gcc)	autoreconf=autoreconf2.64;;	\
-	  (*)			autoreconf=$(AUTORECONF);;	\
+	  (binutils|gcc) autoreconf=$$(which autoreconf2.64);;	\
+	  (*)		 autoreconf=$(autoreconf2.69_exe);;	\
 	esac;							\
+	autoreconf=$$(readlink -f $$autoreconf);		\
+	export AUTOMAKE="$$(readlink -f $(automake_exe))";	\
+	export ACLOCAL="$$(readlink -f $$(dirname $(automake_exe))/aclocal) -I /usr/share/aclocal"; \
 	(cd $$dir && $$autoreconf -vif) &&			\
 	  find $$dir -name configure -exec touch {} \;
 
@@ -247,6 +329,24 @@ $(git_submodulesdir)/gmp/doc/version.texi:
 	@echo "@set EDITION $(v_gmp)" >> $@
 	@echo "@set VERSION $(v_gmp)" >> $@
 
+
+
+# -----------------------------------------------------------------------------
+# --- Rules for building missing tools                                      ---
+# -----------------------------------------------------------------------------
+
+prepare.autotools: $(autotools_deps)
+
+$(autotools_prefix)/bin/autoreconf: $(autotools_prefix)/bin/autoconf
+$(autotools_prefix)/bin/%: $(autotools_prefix)/%-*/configure
+	(cd $$(dirname $<) &&					\
+	 ./configure --prefix=$(CURDIR)/$(autotools_prefix) &&	\
+	 $(MAKE) &&						\
+	 $(MAKE) install)
+$(autotools_prefix)/%/configure: $(top_srcdir)/ext/files/%.tar.gz
+	(mkdir -p $(autotools_prefix) &&			\
+	 tar zxf $< -C $(autotools_prefix) &&			\
+	 touch $@)
 
 # -----------------------------------------------------------------------------
 # --- Rules for generating a tarball                                        ---
@@ -278,21 +378,25 @@ AUTORECONF_GENERATED_FILES := \
 
 dist.list.deps: fixup.git.submodules $(top_srcdir)/.timestamp
 dist.list: dist.list.deps
-	@echo .timestamp ;						 \
-	for d in . `$(GIT) submodule foreach --quiet 'echo $$path')`; do \
-	  (cd $$d && git ls-tree -r --name-only HEAD) | while read f; do \
-	    case $$f in (*.git*|*.cvs*) continue;; esac;		 \
-	    [ -d "$$d/$$f" ] && [ -n "`ls -A $$d/$$f`" ] && continue;	 \
-	    echo "$$d/$$f";						 \
-	    case "$$f" in						 \
-	      (*/Makefile.am|Makefile.am)				 \
-		gd="$$d/`dirname $$f`";					 \
-		$(foreach gf, $(AUTORECONF_GENERATED_FILES),		 \
-		  [ -f "$$gd/$(gf)" ] && echo "$$gd/$(gf)";)		 \
-		[ -d "$$gd/m4" ] && ls -1 "$$gd/m4"/*.m4;		 \
-		;;							 \
-	    esac;							 \
-	  done;								 \
+	@echo .timestamp ;						    \
+	for d in . `$(GIT) submodule foreach --quiet 'echo $$path')`; do    \
+	  (cd $$d && git ls-tree -r --name-only HEAD) | while read -r f; do \
+	    case $$f in (\"*\") f=$$(eval printf "$$f");; esac;		    \
+	    case $$f in							    \
+	      (*.git*|*.cvs*) continue;;				    \
+	      (\"*\") f=$$(eval printf "$ff");;				    \
+	    esac;							    \
+	    [ -d "$$d/$$f" ] && [ -n "`ls -A $$d/$$f`" ] && continue;	    \
+	    echo "$$d/$$f";						    \
+	    case "$$f" in						    \
+	      (*/Makefile.am|Makefile.am)				    \
+		gd="$$d/`dirname $$f`";					    \
+		$(foreach gf, $(AUTORECONF_GENERATED_FILES),		    \
+		  [ -f "$$gd/$(gf)" ] && echo "$$gd/$(gf)";)		    \
+		[ -d "$$gd/m4" ] && ls -1 "$$gd/m4"/*.m4;		    \
+		;;							    \
+	    esac;							    \
+	  done;								    \
 	done
 
 dist.file: dist.dirs dist.list.deps
@@ -316,7 +420,7 @@ DEB_GENERATED_FILES := \
 
 debsrc_dir  = $(top_srcdir)/..
 debsrc_name = $(PROJECT)-$(v_gcc_branch)_$(v_gcc)~$(project_timestamp).orig
-debsrc_file = $(debsrc_name).tar.gz
+debsrc_file = $(debsrc_name).tar.bz2
 
 deb.files: $(DEB_GENERATED_FILES)
 deb: deb.files $(debsrc_dir)/$(debsrc_file)
@@ -324,9 +428,9 @@ deb: deb.files $(debsrc_dir)/$(debsrc_file)
 
 debsrc.file.orig: $(debsrc_dir)/$(debsrc_file)
 $(debsrc_dir)/$(debsrc_file): dist.dirs dist.list.deps
-	$(MAKE) -s dist.list | tar zcf $(debsrc_dir)/$(debsrc_file) \
-	  --no-recursion --transform 's|^|$(debsrc_name)/|' -T - \
-	  --exclude "*/debian/*"
+	$(MAKE) -s dist.list | tar jcf $(debsrc_dir)/$(debsrc_file) \
+	  --exclude "*/debian/*" --no-recursion \
+	  --transform 's|^|$(debsrc_name)/|' -T -
 
 debian/%: debian/%.in debian/rules
 	./debian/rules $@
