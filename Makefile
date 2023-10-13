@@ -111,6 +111,7 @@ gcc_confflags = \
 	--build=$(build_triplet) \
 	--target=$(target_triplet) \
 	--enable-languages=c,c++ \
+	--enable-plugins \
 	--disable-multilib \
 	--disable-werror \
 	--with-linker-hash-style=$(ld_hash_style) \
