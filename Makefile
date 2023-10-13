@@ -17,6 +17,9 @@ slibdir = /usr/lib/gcc/$(target_triplet)/$(v_gcc_branch)
 endif
 endif
 
+# Check for chrpath tool
+chrpath_exe		:= $(shell which chrpath)
+
 # Ensure suitable autotools are available
 autotools_prefix	= $(objdir)/autotools
 autotools_deps		=
@@ -268,6 +271,16 @@ install.only.fixes: install.fix.rpath install.fix.libtool
 
 install.fix.rpath: install.only.files
 ifeq ($(RPATH_SYSTEM_LIBS),yes)
+	find $(DESTDIR)$(libdir)/ -type f -name "lib*.so.[0-9]*" | \
+	(while read f; do					\
+	  [ -x "$(chrpath_exe)" ] || continue;			\
+	  rpath=$$($(chrpath_exe) -l "$$f" |			\
+	    sed -n '/.*PATH=\(.*\)$$/s//\1/p');			\
+	  case "$$rpath" in (*$(libdir)*);; (*) continue;; esac; \
+	  new_rpath=$$(echo "$$rpath" |				\
+	    sed -e 's,\(^\|:\)$(libdir)[^:]*\($$\|:\),,g');	\
+	  $(chrpath_exe) -r "$$new_rpath" "$$f";		\
+	done)
 	mkdir -p $(DESTDIR)$(slibdir)
 	(rel_libdir=$$(echo $(libdir)|				\
 	   awk -F '/' '{for (i=1;i<NF;i++) printf "../"}');	\
