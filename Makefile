@@ -336,9 +336,17 @@ $(git_submodulesdir)/gmp/doc/version.texi:
 	@echo "@set EDITION $(v_gmp)" >> $@
 	@echo "@set VERSION $(v_gmp)" >> $@
 
-$(git_submodulesdir)/gcc/gcc/distro-defaults.h:
+$(git_submodulesdir)/gcc/gcc/distro-defaults.h: distro-defaults.h
+	@cp -p $< $@
+.timestamp.distro-default.h:
+	@touch $@
+distro-defaults.h: .timestamp.distro-default.h
 	@rm -f $@
 	@touch $@
+ifneq (,$(filter $(dist_release),squeeze wheezy jessie stretch))
+	echo "#undef  DWARF_VERSION_DEFAULT" >> $@
+	echo "#define DWARF_VERSION_DEFAULT 4" >> $@
+endif
 
 
 # -----------------------------------------------------------------------------
