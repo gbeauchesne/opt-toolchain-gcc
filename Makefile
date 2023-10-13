@@ -287,8 +287,8 @@ ifeq ($(RPATH_SYSTEM_LIBS),yes)
 endif
 
 install.fix.libtool: install.only.files
-	rm -f $(DESTDIR)$(libdir)/gcc/$(target_triplet)/$(v_gcc)/plugin/*.la
-	rm -f $(DESTDIR)$(prefix)/libexec/gcc/$(target_triplet)/$(v_gcc)/*.la
+	rm -f $(DESTDIR)$(libdir)/gcc/$(target_triplet)/$(v_gcc_branch)/plugin/*.la
+	rm -f $(DESTDIR)$(prefix)/libexec/gcc/$(target_triplet)/$(v_gcc_branch)/*.la
 	rm -f $(DESTDIR)$(libdir)/*.la
 
 # -----------------------------------------------------------------------------
