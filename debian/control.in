@@ -6,18 +6,15 @@ Build-Depends: autoconf (= 2.64) | autoconf2.64,
                autogen,
                bison,
                build-essential,
+               chrpath,
                debhelper (>= 9),
                dejagnu,
                dh-autoreconf,
-               dpkg-dev (>= 1.15.12),
                flex,
                ghostscript,
                git,
                libz-dev,
                lsb-release,
-               m4,
-               make,
-               patchutils,
                pkg-config,
                texinfo,
                time
@@ -26,8 +23,99 @@ Standards-Version: 3.7.2
 Package: @PACKAGE_NAME@
 Section: libs
 Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: @GCC_LIB_DEPENDS@ ${shlibs:Depends}, ${misc:Depends}
 Description: GCC, the GNU Compiler Collection
  This package contains the GNU Compiler Collection @GCC_BRANCH@.x for
  C and C++ languages installed in /opt/toolchain/gcc-@GCC_BRANCH@/
  .
+
+Package: libatomic1-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: support library providing __atomic built-in functions
+ library providing __atomic built-in functions. When an atomic call cannot
+ be turned into lock-free instructions, GCC will make calls into this library.
+
+Package: libcc1-0-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GCC cc1 plugin for GDB
+ libcc1 is a plugin for GDB.
+
+Package: libgomp1-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GCC OpenMP (GOMP) support library
+ GOMP is an implementation of OpenMP for the C, C++, and Fortran compilers
+ in the GNU Compiler Collection.
+
+Package: libitm1-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Transactional Memory Library
+ GNU Transactional Memory Library (libitm) provides transaction support for
+ accesses to the memory of a process, enabling easy-to-use synchronization of
+ accesses to shared memory by several threads.
+
+Package: libquadmath0-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GCC Quad-Precision Math Library
+ A library, which provides quad-precision mathematical functions on targets
+ supporting the __float128 datatype.
+
+Package: libstdc++6-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Standard C++ Library v3
+ This package contains an additional runtime library for C++ programs
+ built with the GNU compiler.
+
+Package: libasan3-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: AddressSanitizer -- a fast memory error detector
+ AddressSanitizer (ASan) is a fast memory error detector.  It finds
+ use-after-free and {heap,stack,global}-buffer overflow bugs in C/C++ programs.
+
+Package: liblsan0-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: LeakSanitizer -- a memory leak detector (runtime)
+ LeakSanitizer (Lsan) is a memory leak detector which is integrated
+ into AddressSanitizer.
+
+Package: libtsan0-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: ThreadSanitizer -- a Valgrind-based detector of data races (runtime)
+ ThreadSanitizer (Tsan) is a data race detector for C/C++ programs.
+ The Linux and Mac versions are based on Valgrind.
+
+Package: libubsan0-@GCC_MAJOR_VERSION@
+Section: libs
+Architecture: any
+Priority: optional
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: UBSan -- undefined behaviour sanitizer (runtime)
+ UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
+ Various computations will be instrumented to detect undefined behavior
+ at runtime. Available for C and C++.

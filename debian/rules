@@ -5,8 +5,6 @@ ifneq (,$(wildcard /usr/share/dpkg/buildflags.mk))
 include /usr/share/dpkg/buildflags.mk
 endif
 
-export USE_RPATH = no
-
 dist_release := $(shell lsb_release -rs 2>/dev/null)
 
 DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
@@ -36,8 +34,14 @@ PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: [0-9][0-9.]
 # Date of the day for auto-generated debian/changelog file
 TODAY := $(shell LC_ALL=C date +'%a, %d %b %Y %X %z')
 
+# List of dependant libraries
+gcc_lib_depends := \
+	$(shell sed -n '/^Package: \(lib.*[0-9]\)-.*/s//\1-$(GCC_BRANCH)/p' \
+	  debian/control.in)
+
 # Debian files that need to be generated
 GENERATED_FILES = \
+	$(gcc_lib_depends:%=debian/%.install) \
 	debian/$(PACKAGE_NAME).install \
 	debian/lintian-overrides \
 	debian/changelog \
@@ -49,6 +53,7 @@ GENERATED_FILES_SED_PATTERNS = \
 	-e 's/@GCC_MAJOR_VERSION@/$(GCC_MAJOR_VERSION)/g' \
 	-e 's/@GCC_MINOR_VERSION@/$(GCC_MINOR_VERSION)/g' \
 	-e 's/@GCC_VERSION@/$(GCC_VERSION)/g' \
+	-e 's/@GCC_LIB_DEPENDS@/$(gcc_lib_depends:%=% (= $${binary:Version}),)/g' \
 	-e 's/@PACKAGE_BASENAME@/$(PACKAGE_BASENAME)/g' \
 	-e 's/@PACKAGE_NAME@/$(PACKAGE_NAME)/g' \
 	-e 's/@PACKAGE_VERSION@/$(PACKAGE_VERSION)/g' \
@@ -60,6 +65,8 @@ GENERATED_FILES_SED_PATTERNS = \
 debian/%: debian/%.in debian/rules
 	sed $(GENERATED_FILES_SED_PATTERNS) $< >$@
 debian/$(PACKAGE_NAME).%: debian/$(PACKAGE_BASENAME).%.in debian/rules
+	sed $(GENERATED_FILES_SED_PATTERNS) $< >$@
+debian/lib%-$(GCC_MAJOR_VERSION).install: debian/lib%.install.in debian/rules
 	sed $(GENERATED_FILES_SED_PATTERNS) $< >$@
 
 override_dh_auto_configure: $(GENERATED_FILES)
