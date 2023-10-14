@@ -32,8 +32,6 @@ Description: GCC, the GNU Compiler Collection
 Package: libatomic1-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: support library providing __atomic built-in functions
@@ -43,8 +41,6 @@ Description: support library providing __atomic built-in functions
 Package: libcc1-0-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: GCC cc1 plugin for GDB
@@ -53,8 +49,6 @@ Description: GCC cc1 plugin for GDB
 Package: libgomp1-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: GCC OpenMP (GOMP) support library
@@ -64,8 +58,6 @@ Description: GCC OpenMP (GOMP) support library
 Package: libitm1-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Transactional Memory Library
@@ -76,8 +68,6 @@ Description: GNU Transactional Memory Library
 Package: libquadmath0-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: GCC Quad-Precision Math Library
@@ -87,8 +77,6 @@ Description: GCC Quad-Precision Math Library
 Package: libstdc++6-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Standard C++ Library v3
@@ -98,8 +86,6 @@ Description: GNU Standard C++ Library v3
 Package: libasan8-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: AddressSanitizer -- a fast memory error detector
@@ -109,8 +95,6 @@ Description: AddressSanitizer -- a fast memory error detector
 Package: libhwasan0-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: AddressSanitizer -- a fast memory error detector
@@ -120,8 +104,6 @@ Description: AddressSanitizer -- a fast memory error detector
 Package: liblsan0-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: LeakSanitizer -- a memory leak detector (runtime)
@@ -131,8 +113,6 @@ Description: LeakSanitizer -- a memory leak detector (runtime)
 Package: libtsan2-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: ThreadSanitizer -- a Valgrind-based detector of data races (runtime)
@@ -142,8 +122,6 @@ Description: ThreadSanitizer -- a Valgrind-based detector of data races (runtime
 Package: libubsan1-@GCC_MAJOR_VERSION@
 Section: libs
 Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
 Priority: optional
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: UBSan -- undefined behaviour sanitizer (runtime)
