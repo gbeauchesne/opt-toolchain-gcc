@@ -1,5 +1,14 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Use DWARF4 debug info format by default.
+  * Fix many test failures for older distributions.
+  * Fix build dependencies (add missing, drop implicit).
+  * Fix RUNPATH to /usr/lib/gcc/<target_triplet>/<gcc_major> libs.
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-13 (13.2.1~1696670880-1) unstable; urgency=low
+
   * Update dependencies.
     - binutils to git 2023/10/06 (27820dc1) from the 2.41-branch.
     - 3rdparty: isl (0.26), cloog (0.21.1), mpc (1.3.1), mpfr (4.2.1).
@@ -15,7 +24,7 @@
       PR c++/92407, PR tree-optimization/110914, PR tree-optimization/111015,
       PR target/109725 (RISCV).
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Sat, 07 Oct 2023 11:28:00 +0200
 
 opt-toolchain-gcc-13 (13.2.1~1696580364-1) unstable; urgency=low
 
