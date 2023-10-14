@@ -6,6 +6,7 @@ srcdir = $(top_srcdir)/src
 objdir = $(top_srcdir)/obj.$(target_triplet)
 prefix = /opt/toolchain/gcc-$(v_gcc_branch)
 libdir = $(prefix)/lib
+docdir = $(prefix)/share/doc
 
 RPATH_SYSTEM_LIBS = yes
 ifeq ($(RPATH_SYSTEM_LIBS),yes)
@@ -260,10 +261,32 @@ check.only:
 
 install: build
 	$(MAKE) install.only
-install.only: install.only.fixes
+install.only: install.only.fixes install.only.tests
 install.only.files:
 	$(MAKE) -C $(objdir) install DESTDIR=$(DESTDIR)
 install.only.fixes: install.fix.rpath install.fix.libtool
+install.only.tests: install.only.tests.dejagnu install.only.tests.inria
+
+install.only.tests.dejagnu:
+	mkdir -p $(DESTDIR)$(docdir)/testsuite
+	find $(objdir) -type f -name "*.sum" |			\
+	(while read f; do					\
+	  testdocdir="$(DESTDIR)$(docdir)/testsuite";		\
+	  cp $$f $$testdocdir/;					\
+	  flog=$$(echo $$f | sed -e 's/\.sum$$/\.log/');	\
+	  flog_base=$$(basename $$flog);			\
+	  gzip -9c $$flog > $$testdocdir/$$flog_base.gz;	\
+	done)
+
+install.only.tests.inria:
+	mkdir -p $(DESTDIR)$(docdir)/testsuite
+	for repo in isl gmp mpc mpfr; do			\
+	  testdocdir="$(DESTDIR)$(docdir)/testsuite";		\
+	  flogs=$$(find $(objdir)/$$repo -name test-suite.log |	\
+	    sort -u);						\
+	  [ -n "$$flogs" ] || continue;				\
+	  cat $$flogs > $$testdocdir/$$repo.sum;		\
+	done
 
 install.fix.rpath: install.only.files
 ifeq ($(RPATH_SYSTEM_LIBS),yes)
