@@ -32,10 +32,8 @@ GCC_PREFIX = /opt/toolchain/gcc-$(GCC_BRANCH)
 # Recent enough compilers are required (C++11 support)
 ifneq ($(shell dpkg --compare-versions \
   $(shell $(CXX) -dumpversion) '>=' $(GCC_MIN_VERSION) && echo yes), yes)
-export AR = /opt/toolchain/gcc-6.4/bin/ar
-export RANLIB = /opt/toolchain/gcc-6.4/bin/ranlib
-export CC = /opt/toolchain/gcc-6.4/bin/gcc
-export CXX = /opt/toolchain/gcc-6.4/bin/g++
+export CC = /opt/toolchain/gcc-6/bin/gcc
+export CXX = /opt/toolchain/gcc-6/bin/g++
 endif
 
 # Package name, that includes the GCC branch and UNIX timestamp
