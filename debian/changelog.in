@@ -1,11 +1,17 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2023/11/xx () from the gcc-13 branch.
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-13 (13.2.1~1697372938-1) unstable; urgency=low
+
   * Use DWARF4 debug info format by default.
   * Fix many test failures for older distributions.
   * Fix build dependencies (add missing, drop implicit).
   * Fix RUNPATH to /usr/lib/gcc/<target_triplet>/<gcc_major> libs.
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Sat, 25 Nov 2023 16:22:25 +0000
 
 opt-toolchain-gcc-13 (13.2.1~1696670880-1) unstable; urgency=low
 
