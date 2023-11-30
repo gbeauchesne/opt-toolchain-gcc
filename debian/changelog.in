@@ -1,6 +1,30 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
-  * Update to git 2023/11/xx () from the gcc-13 branch.
+  * Fix #pragma GCC {target,optimize} support for C++.
+  * Build compilers in "release" mode, i.e. with less internal checks.
+  * Update to git 2023/11/30 (157add39) from the gcc-13 branch.
+    - Fix PR mingw/111170, PR mingw/108865, PR libstdc++/112607,
+      PR c++/111703, PR c++/107939, PR c++/111703, PR c++/112269,
+      PR tree-optimization/111465, PR tree-optimization/111137,
+      PR target/112672, PR c++/112633, PR target/111815, PR target/53372,
+      PR c++/112301, PR c++/102191, PR c++/33799, PR libstdc++/112491,
+      PR target/111828, PR tree-optimization/112496, PR libstdc++/112348,
+      PR libstdc++/112491, PR target/110411, PR libstdc++/110944,
+      PR tree-optimization/111917, PR middle-end/111818,
+      PR tree-optimization/111764, PR tree-optimization/111614,
+      PR tree-optimization/111583, PR tree-optimization/111489,
+      PR tree-optimization/111445, PR tree-optimization/111397,
+      PR middle-end/111253, PR target/112443, PR modula2/112110,
+      PR libstdc++/21769, PR libstdc++/111172, PR libstdc++/112314,
+      PR libstdc++/112089, PR d/112408, PR libbacktrace/111315,
+      PR libbacktrace/112263, PR fortran/97245, PR fortran/112316,
+      PR target/111935, PR d/110712, PR d/112270, PR tree-optimization/111820,
+      PR tree-optimization/111833, PR fortran/67740, PR libstdc++/111936,
+      PR target/111001, PR target/111367, PR fortran/111837, PR c/111884,
+      PR target/101177, PR c++/89038, PR target/111528, PR modula2/111756,
+      PR target/110170, PR target/111380, PR target/111366,
+      PR tree-optimization/111622, PR tree-optimization/111694,
+      PR tree-optimization/111519, PR ada/111434, PR middle-end/111699.
 
  -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
 
