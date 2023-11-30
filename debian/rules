@@ -8,6 +8,7 @@ endif
 dist_release := $(shell lsb_release -rs 2>/dev/null)
 
 DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-checking=release
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-linker-build-id
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-gnu-unique-object
 ifeq ($(shell dpkg --compare-versions $(dist_release) '>=' 9 && echo yes),yes)
