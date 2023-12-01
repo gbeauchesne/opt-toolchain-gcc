@@ -1,6 +1,7 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
   * Fix #pragma GCC {target,optimize} support for C++.
+  * Fix -static-pie binaries on newer distributions (>= Debian/stretch).
   * Build compilers in "release" mode, i.e. with less internal checks.
   * Update to git 2023/11/30 (157add39) from the gcc-13 branch.
     - Fix PR mingw/111170, PR mingw/108865, PR libstdc++/112607,
