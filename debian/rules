@@ -7,6 +7,11 @@ endif
 
 dist_release := $(shell lsb_release -rs 2>/dev/null)
 
+# Disable GCC dump for XFAIL tests (dg-ice)
+DEB_BUILD_OPTIONS += gcc-ice=nodump
+# Disable ICE reproduction
+DEB_BUILD_OPTIONS += gcc-ice=norepro
+
 DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-checking=release
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-linker-build-id
