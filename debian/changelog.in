@@ -1,6 +1,9 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Fix libstdc++-v3 testsuite with -Wformat.
   * Fix #pragma GCC {target,optimize} support for C++.
+  * Fix -static-pie binaries on newer distributions (>= Debian/stretch).
+  * Build libstdc++ with static tzdata 2023c (< Debian/bookworm).
   * Build compilers in "release" mode, i.e. with less internal checks.
   * Update to git 2023/11/30 (157add39) from the gcc-13 branch.
     - Fix PR mingw/111170, PR mingw/108865, PR libstdc++/112607,
@@ -35,7 +38,7 @@ opt-toolchain-gcc-13 (13.2.1~1697372938-1) unstable; urgency=low
   * Fix build dependencies (add missing, drop implicit).
   * Fix RUNPATH to /usr/lib/gcc/<target_triplet>/<gcc_major> libs.
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  Sat, 25 Nov 2023 16:22:25 +0000
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Sun, 15 Oct 2023 14:28:58 +0200
 
 opt-toolchain-gcc-13 (13.2.1~1696670880-1) unstable; urgency=low
 

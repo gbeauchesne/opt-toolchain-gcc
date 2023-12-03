@@ -7,12 +7,22 @@ endif
 
 dist_release := $(shell lsb_release -rs 2>/dev/null)
 
+# Disable GCC dump for XFAIL tests (dg-ice)
+DEB_BUILD_OPTIONS += gcc-ice=nodump
+# Disable ICE reproduction
+DEB_BUILD_OPTIONS += gcc-ice=norepro
+
 DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-checking=release
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-linker-build-id
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-gnu-unique-object
 ifeq ($(shell dpkg --compare-versions $(dist_release) '>=' 9 && echo yes),yes)
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-default-pie
+endif
+# Use built-in tzdata.i (2023c), if not available system-wide (Debian >= 12)
+# XXX: leapseconds is valid until 2023/12/28. Next leapsecond maybe on 2024/06/30
+ifneq ($(shell dpkg --compare-versions $(dist_release) '>=' 12 && echo yes),yes)
+DEB_EXTRA_CONFIGURE_FLAGS += --with-libstdcxx-zoneinfo=static
 endif
 
 # Plain characters (comma, space)
