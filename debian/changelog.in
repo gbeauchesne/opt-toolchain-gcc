@@ -1,5 +1,6 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Fix libstdc++-v3 testsuite with -Wformat.
   * Fix #pragma GCC {target,optimize} support for C++.
   * Fix -static-pie binaries on newer distributions (>= Debian/stretch).
   * Build compilers in "release" mode, i.e. with less internal checks.
