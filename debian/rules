@@ -19,6 +19,11 @@ DEB_EXTRA_CONFIGURE_FLAGS += --enable-gnu-unique-object
 ifeq ($(shell dpkg --compare-versions $(dist_release) '>=' 9 && echo yes),yes)
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-default-pie
 endif
+# Use built-in tzdata.i (2023c), if not available system-wide (Debian >= 12)
+# XXX: leapseconds is valid until 2023/12/28. Next leapsecond maybe on 2024/06/30
+ifneq ($(shell dpkg --compare-versions $(dist_release) '>=' 12 && echo yes),yes)
+DEB_EXTRA_CONFIGURE_FLAGS += --with-libstdcxx-zoneinfo=static
+endif
 
 # Plain characters (comma, space)
 c_comma := ,
