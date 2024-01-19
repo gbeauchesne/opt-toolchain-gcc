@@ -1,5 +1,26 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+   * Update to git 2024/01/19 (e3d4ebdc) from the gcc-13 branch.
+     - Fix PR fortran/67277, PR libstdc++/113450, PR testsuite/113366,
+       PR c++/113242, PR c++/99493, PR target/107201, PR c++/104634,
+       PR c++/109899, PR target/113156, PR testsuite/106879,
+       PR libgfortran/113223, PR libstdc++/112477, PR libstdc++/113250,
+       PR ada/112781, PR target/112952, PR libstdc++/113241,
+       PR libstdc++/113200, PR testsuite/113175, PR fortran/97592,
+       PR target/112759, PR c++/108975, PR sanitizer/111736,
+       PR target/112816, PR sanitizer/112727, PR target/112891,
+       PR c++/110106, PR c++/112410, PR c++/109876, PR fortran/93762,
+       PR fortran/100651, PR fortran/93762, PR fortran/100651,
+       PR libstdc++/111826, PR libstdc++/111948, PR libstdc++/112480,
+       PR libstdc++/112473, PR libstdc++/112832, PR libstdc++/110133,
+       PR target/112845, PR target/112837, PR target/112816,
+       PR c++/112795, PR target/111408, PR c/112339, PR libgomp/111413,
+       PR fortran/111880, PR fortran/112764.
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-13 (13.2.1~1701602039-1) unstable; urgency=low
+
   * Fix libstdc++-v3 testsuite with -Wformat.
   * Fix #pragma GCC {target,optimize} support for C++.
   * Fix -static-pie binaries on newer distributions (>= Debian/stretch).
@@ -29,7 +50,7 @@
       PR tree-optimization/111622, PR tree-optimization/111694,
       PR tree-optimization/111519, PR ada/111434, PR middle-end/111699.
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 06 Dec 2023 19:18:16 +0100
 
 opt-toolchain-gcc-13 (13.2.1~1697372938-1) unstable; urgency=low
 
