@@ -1,5 +1,7 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+   * Backport from trunk:
+     - Let libcpp know when the compilation is for a PCH (PR pch/9471).
    * Update to git 2024/01/19 (e3d4ebdc) from the gcc-13 branch.
      - Fix PR fortran/67277, PR libstdc++/113450, PR testsuite/113366,
        PR c++/113242, PR c++/99493, PR target/107201, PR c++/104634,
