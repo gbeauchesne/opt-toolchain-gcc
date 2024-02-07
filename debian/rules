@@ -54,7 +54,7 @@ PACKAGE_VERSION = $(GCC_VERSION)~$(PACKAGE_TIMESTAMP)
 PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: [0-9][0-9.]*~\([0-9][0-9]*\)/s//\1/p')
 
 # Date of the day for auto-generated debian/changelog file
-TODAY := $(shell LC_ALL=C date +'%a, %d %b %Y %X %z')
+TODAY := $(shell LC_ALL=C date -d @$(PACKAGE_TIMESTAMP) +'%a, %d %b %Y %X %z')
 
 # List of dependant libraries
 gcc_lib_depends := \
