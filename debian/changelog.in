@@ -1,6 +1,15 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
-  * Update to git 2024/02/xx () from the gcc-13 branch.
+  * Update to git 2024/02/07 (2bd8264a) from the gcc-13 branch.
+    - Fix PR PR target/111677, PR target/111677, PR tree-optimization/112618,
+      PR tree-optimization/112505, PR tree-optimization/112495,
+      PR tree-optimization/110221, PR middle-end/110176, PR c++/107291,
+      PR c++/111286, PR c++/95226, PR c++/109359, PR c++/110084,
+      PR c++/113638, PR c++/112439, PR c++/112437, PR fortran/104908,
+      PR fortran/104908, PR libstdc++/113500, PR libstdc++/113512,
+      PR preprocessor/105608, PR preprocessor/105608, PR c++/113529,
+      PR target/113601, PR c++/113347, PR c++/103185, PR c++/113088,
+      PR c++/33799, PR tree-optimization/110422, PR tree-optimization/110422.
 
  -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
 
