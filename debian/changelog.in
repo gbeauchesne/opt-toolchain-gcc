@@ -1,5 +1,7 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Backport from trunk:
+    - Fix FAIL of g++.dg/opt/pr91838.C for PR tree-optimization/91838.
   * Update to git 2024/03/12 (ac969731) from the gcc-13 branch.
     - Fix PR middle-end/95351, PR driver/114314, PR libfortran/105437,
       PR libfortran/114304, PR d/112285, PR d/112290, PR libfortran/105473,
