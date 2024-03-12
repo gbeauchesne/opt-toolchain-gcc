@@ -1,7 +1,34 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2024/03/12 (ac969731) from the gcc-13 branch.
+    - Fix PR middle-end/95351, PR driver/114314, PR libfortran/105437,
+      PR libfortran/114304, PR d/112285, PR d/112290, PR libfortran/105473,
+      PR ada/113979, PR fortran/114012, PR fortran/114024, PR target/101737,
+      PR d/114171, PR d/113758, PR d/113125, PR middle-end/114136,
+      PR tree-optimization/114041, PR tree-optimization/114090, PR c/114007,
+      PR tree-optimization/113993, PR c++/113674, PR middle-end/110754,
+      PR rtl-optimization/113656, PR tree-optimization/113603,
+      PR target/113122, PR tree-optimization/113372, PR middle-end/90348,
+      PR middle-end/110115, PR middle-end/111422, PR libgomp/113192,
+      PR c/113262, PR libgomp/113192, PR rtl-optimization/112758,
+      PR libstdc++/113960, PR libstdc++/114152, PR target/108174,
+      PR target/114098, PR ada/113893, PR target/108120,
+      PR tree-optimization/109804, PR preprocessor/105608, PR target/112299,
+      PR target/112330, PR target/112787, PR libgcc/113850, PR c++/113545,
+      PR libstdc++/113294, PR libstdc++/99117, PR middle-end/107385,
+      PR middle-end/113921, PR target/113927, PR c++/113612,
+      PR tree-optimization/113896, PR libgfortran/109358,
+      PR libfortran/111022, PR target/105523, PR libfortran/110651,
+      PR libstdc++/112467, PR libstdc++/110807, PR libstdc++/113258,
+      PR libstdc++/107466, PR libstdc++/90276, PR target/113824,
+      PR testsuite/108321.
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-13 (13.2.1~1707333545-1) unstable; urgency=low
+
   * Update to git 2024/02/07 (2bd8264a) from the gcc-13 branch.
-    - Fix PR PR target/111677, PR target/111677, PR tree-optimization/112618,
+    - Fix PR target/111677, PR target/111677, PR tree-optimization/112618,
       PR tree-optimization/112505, PR tree-optimization/112495,
       PR tree-optimization/110221, PR middle-end/110176, PR c++/107291,
       PR c++/111286, PR c++/95226, PR c++/109359, PR c++/110084,
@@ -11,7 +38,7 @@
       PR target/113601, PR c++/113347, PR c++/103185, PR c++/113088,
       PR c++/33799, PR tree-optimization/110422, PR tree-optimization/110422.
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 07 Feb 2024 20:19:05 +0100
 
 opt-toolchain-gcc-13 (13.2.1~1706086845-1) unstable; urgency=low
 
