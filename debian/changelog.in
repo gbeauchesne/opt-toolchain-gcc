@@ -1,5 +1,70 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2024/05/03 (169f10cb) from the gcc-13 branch.
+    - Fix PR tree-optimization/114672, PR libstdc++/93672,
+      PR libstdc++/104606, PR target/101865, PR target/101865,
+      PR target/101865, PR c++/113141, PR c++/114377, PR c++/114561,
+      PR c++/114562, PR c++/100667, PR libstdc++/114863,
+      PR target/113095, PR target/111600, PR target/114848,
+      PR PR target/111234, PR target/114272, PR target/110621,
+      PR fortran/102003, PR target/114837, PR target/88309,
+      PR target/114172, PR target/114172, PR libfortran/114304,
+      PR libfortran/105473, PR target/114794, PR c/114780,
+      PR rtl-optimization/114768, PR middle-end/114753,
+      PR sanitizer/114743, PR c++/114634, PR c++/114691,
+      PR sanitizer/114687, PR middle-end/110027, PR c++/114580,
+      PR tree-optimization/114566, PR c++/114572, PR c++/114537,
+      PR libquadmath/114533, PR middle-end/114552, bootstrap/106472,
+      PR PR ipa/113964, PR ipa/113964, PR ipa/111571, PR ipa/111571,
+      PR target/114752, PR c++/113966, PR c++/110006, PR c++/112769,
+      PR middle-end/114599, PR gcov-profile/114115,
+      PR tree-optimization/114115, PR tree-optimization/114115,
+      PR tree-optimization/113552, PR tree-optimization/113552,
+      PR target/114130, PR ipa/108007, PR ipa/112616, PR ipa/108007,
+      PR ipa/112616, PR fortran/114474, PR fortran/114474,
+      PR testsuite/114034, PR testsuite/114036, PR target/114049,
+      PR target/114175, PR target/112397, PR testsuite/112297,
+      PR middle-end/111632, PR middle-end/111632, PR libstdc++/114401,
+      PR libstdc++/113841, PR libstdc++/114367, PR testsuite/111066,
+      PR c++/103825, PR fortran/103707, PR fortran/106987,
+      PR fortran/113799, PR fortran/95374, PR fortran/104352,
+      PR fortran/95374, PR fortran/104352, tree-optimization/111407,
+      PR PR libgcc/111731, PR analyzer/104042, PR target/113233,
+      PR fortran/107426, PR target/105522, PR target/111610,
+      PR target/114175, PR target/114175, PR tree-optimization/112303,
+      PR tree-optimization/109925, PR middle-end/111151,
+      PR sanitizer/111736, PR middle-end/111683, PR sanitizer/111736,
+      PR target/114175, PR target/114175, PR target/114175,
+      PR target/114175, PR target/114175, PR target/114175,
+      PR target/114175, PR bootstrap/114369, PR target/114175,
+      PR target/114175, PR target/114175, PR target/114175,
+      PR fortran/113866, PR fortran/50410, PR fortran/50410,
+      PR fortran/103716, PR fortran/103716, PR sanitizer/97696,
+      PR sanitizer/97696, PR tree-optimization/110838,
+      PR tree-optimization/114027, PR c/112571, PR fortran/101135,
+      PR fortran/101135, PR fortran/55978, PR fortran/55978,
+      PR tree-optimization/114396, PR tree-optimization/114231,
+      PR tree-optimization/112793, PR tree-optimization/113670,
+      PR middle-end/113622, PR tree-optimization/114203,
+      PR middle-end/114070, PR middle-end/114070,
+      PR tree-optimization/114027, PR tree-optimization/113910,
+      PR debug/112718, PR tree-optimization/111736,
+      PR tree-optimization/114396, PR target/113950, PR target/113950,
+      PR fortran/114001, PR fortran/114001, PR fortran/103715,
+      PR fortran/103715, PR target/111822, PR libstdc++/66146,
+      PR target/114160, PR libstdc++/114316, PR libstdc++/114147,
+      PR sanitizer/112709, PR sanitizer/112709, PR target/114339,
+      PR middle-end/113907, PR target/114310, PR other/109668,
+      PR rtl-optimization/110079, PR rtl-optimization/114211,
+      PR target/114184, PR fortran/110826, PR fortran/110826,
+      PR fortran/100988, PR fortran/100988, PR fortran/104819,
+      PR fortran/104819, PR fortran/104819, PR testsuite/114343,
+      libstdc++/110167
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-13 (13.2.1~1710251024-1) unstable; urgency=low
+
   * Backport from trunk:
     - Fix FAIL of g++.dg/opt/pr91838.C for PR tree-optimization/91838.
   * Update to git 2024/03/12 (ac969731) from the gcc-13 branch.
@@ -25,7 +90,7 @@
       PR libstdc++/107466, PR libstdc++/90276, PR target/113824,
       PR testsuite/108321.
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Tue, 12 Mar 2024 14:43:44 +0100
 
 opt-toolchain-gcc-13 (13.2.1~1707333545-1) unstable; urgency=low
 
