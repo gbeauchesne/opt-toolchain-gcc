@@ -383,8 +383,8 @@ $(autotools_prefix)/bin/autoreconf: $(autotools_prefix)/bin/autoconf
 $(autotools_prefix)/bin/%: $(autotools_prefix)/%-*/configure
 	(cd $$(dirname $<) &&					\
 	 ./configure --prefix=$(CURDIR)/$(autotools_prefix) &&	\
-	 $(MAKE) &&						\
-	 $(MAKE) install)
+	 $(MAKE) MAKEINFO=/bin/true &&				\
+	 $(MAKE) MAKEINFO=/bin/true install)
 $(autotools_prefix)/%/configure: $(top_srcdir)/ext/files/%.tar.gz
 	(mkdir -p $(autotools_prefix) &&			\
 	 tar zxf $< -C $(autotools_prefix) &&			\
