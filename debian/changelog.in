@@ -1,5 +1,43 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * GCC 14.1.0 release.
+  * Update to git 2024/06/04 (e11a42b8) from the gcc-14 branch.
+    - Fix PR libstdc++/115335, PR tree-optimization/115337,
+      PR middle-end/108789, PR target/115324, PR rtl-optimization/114902,
+      PR rtl-optimization/115092, PR modula2/114886,
+      PR libstdc++/111641, PR libstdc++/109849, PR target/115317,
+      PR libstdc++/115269, PR tree-optimization/115307, PR target/115297,
+      PR tree-optimization/115192, PR tree-optimization/115192,
+      PR target/113719, PR Target/84790., PR ada/115270,
+      PR tree-optimization/115149, PR tree-optimization/115197,
+      PR tree-optimization/114921, PR fortran/115150,
+      PR libstdc++/114940, PR target/115169, PR tree-optimization/115232,
+      PR fortran/86100, PR fortran/86100, PR c++/115187,
+      PR c++/114868, PR c++/105320, PR c++/114275, PR c++/114983,
+      PR rtl-optimization/115038, PR libstdc++/115099,
+      PR tree-optimization/115152, PR sanitizer/115172, PR target/115069,
+      PR target/115069, PR libstdc++/107800, PR c++/115139,
+      PR fortran/115039, PR fortran/115039, PR tree-optimization/115154,
+      PR tree-optimization/115143, PR c++/115114, PR c++/114994,
+      PR target/115065, PR fortran/114874, PR fortran/114874,
+      PR libstdc++/115119, PR tree-optimization/114998,
+      PR middle-end/114931, PR middle-end/114931, PR libstdc++/115015,
+      PR libstdc++/115063, PR libstdc++/114891, PR libstdc++/114866,
+      PR c++/114974, PR c++/114901, PR c++/114903, PR target/69374,
+      PR target/112959, PR target/69374, PR target/112959,
+      PR target/69374, PR target/69374, PR target/112959,
+      PR target/114981, PR target/114968, PR driver/114980,
+      PR fortran/114827, PR fortran/114827, PR c++/89224,
+      PR target/114975, PR target/114975, PR target/114981,
+      PR tree-optimization/114965, PR c++/89224, PR c++/114856,
+      PR middle-end/114907, PR sanitizer/114956, PR modula2/113768,
+      PR modula2/114133, PR tree-optimization/114876, PR c++/114889,
+      PR ipa/92606
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-13 (13.3.1~1716973083-1) unstable; urgency=low
+
   * GCC 13.3.0 release.
   * Update to git 2024/05/29 (ebca6006) from the gcc-13 branch.
     - Fix PR fortran/115150, PR libstdc++/114940, PR c++/111529,
@@ -48,7 +86,7 @@
       PR gcov-profile/114715, PR lto/114655, PR tree-optimization/114733,
       PR tree-optimization/114485, PR tree-optimization/111882
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 29 May 2024 10:58:03 +0200
 
 opt-toolchain-gcc-13 (13.2.1~1715757079-1) unstable; urgency=low
 
