@@ -7,11 +7,22 @@ endif
 
 dist_release := $(shell lsb_release -rs 2>/dev/null)
 
+# Disable GCC dump for XFAIL tests (dg-ice)
+DEB_BUILD_OPTIONS += gcc-ice=nodump
+# Disable ICE reproduction
+DEB_BUILD_OPTIONS += gcc-ice=norepro
+
 DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-checking=release
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-linker-build-id
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-gnu-unique-object
 ifeq ($(shell dpkg --compare-versions $(dist_release) '>=' 9 && echo yes),yes)
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-default-pie
+endif
+# Use built-in tzdata.i (2023c), if not available system-wide (Debian >= 12)
+# XXX: leapseconds is valid until 2023/12/28. Next leapsecond maybe on 2024/06/30
+ifneq ($(shell dpkg --compare-versions $(dist_release) '>=' 12 && echo yes),yes)
+DEB_EXTRA_CONFIGURE_FLAGS += --with-libstdcxx-zoneinfo=static
 endif
 
 # Plain characters (comma, space)
@@ -32,10 +43,8 @@ GCC_PREFIX = /opt/toolchain/gcc-$(GCC_BRANCH)
 # Recent enough compilers are required (C++11 support)
 ifneq ($(shell dpkg --compare-versions \
   $(shell $(CXX) -dumpversion) '>=' $(GCC_MIN_VERSION) && echo yes), yes)
-export AR = /opt/toolchain/gcc-6.4/bin/ar
-export RANLIB = /opt/toolchain/gcc-6.4/bin/ranlib
-export CC = /opt/toolchain/gcc-6.4/bin/gcc
-export CXX = /opt/toolchain/gcc-6.4/bin/g++
+export CC = /opt/toolchain/gcc-6/bin/gcc
+export CXX = /opt/toolchain/gcc-6/bin/g++
 endif
 
 # Package name, that includes the GCC branch and UNIX timestamp
@@ -45,7 +54,7 @@ PACKAGE_VERSION = $(GCC_VERSION)~$(PACKAGE_TIMESTAMP)
 PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: [0-9][0-9.]*~\([0-9][0-9]*\)/s//\1/p')
 
 # Date of the day for auto-generated debian/changelog file
-TODAY := $(shell LC_ALL=C date +'%a, %d %b %Y %X %z')
+TODAY := $(shell LC_ALL=C date -d @$(PACKAGE_TIMESTAMP) +'%a, %d %b %Y %X %z')
 
 # List of dependant libraries
 gcc_lib_depends := \
@@ -89,6 +98,11 @@ override_dh_auto_configure: $(GENERATED_FILES)
 
 override_dh_auto_build:
 	make build.only
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	make check.only || :
+endif
 
 override_dh_auto_install:
 	make install.only \

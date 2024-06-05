@@ -6,6 +6,7 @@ srcdir = $(top_srcdir)/src
 objdir = $(top_srcdir)/obj.$(target_triplet)
 prefix = /opt/toolchain/gcc-$(v_gcc_branch)
 libdir = $(prefix)/lib
+docdir = $(prefix)/share/doc
 
 RPATH_SYSTEM_LIBS = yes
 ifeq ($(RPATH_SYSTEM_LIBS),yes)
@@ -13,6 +14,9 @@ slibdir = /usr/lib/gcc/$(target_triplet)/$(v_gcc_branch)
 else
 slibdir = $(libdir)
 endif
+
+# Check for chrpath tool
+chrpath_exe		:= $(shell which chrpath)
 
 # Ensure suitable autotools are available
 autotools_prefix	= $(objdir)/autotools
@@ -108,6 +112,7 @@ gcc_confflags = \
 	--build=$(build_triplet) \
 	--target=$(target_triplet) \
 	--enable-languages=c,c++ \
+	--enable-plugins \
 	--disable-multilib \
 	--disable-werror \
 	--with-linker-hash-style=$(ld_hash_style) \
@@ -171,8 +176,13 @@ v_mpfr = $(shell sed -n '/.*MPFR_VERSION_STRING  *"$(p_version).*"/s//\1/p' \
 	$(git_submodulesdir)/mpfr/src/mpfr.h)
 
 # The Chunk Loop Generator (CLooG)
-v_cloog = $(shell sed -n '1s/version: $(p_version)/\1/p' \
-	$(git_submodulesdir)/cloog/ChangeLog)
+v_cloog_mj = $(shell sed -n '/^m4_define.*version_major.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog_mn = $(shell sed -n '/^m4_define.*version_minor.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog_mc = $(shell sed -n '/^m4_define.*version_revision.*\[\([0-9]*\)\].*/s//\1/p' \
+	$(git_submodulesdir)/cloog/configure.ac)
+v_cloog = $(v_cloog_mj).$(v_cloog_mn).$(v_cloog_mc)
 
 # The Integer Set Library (ISL)
 v_isl = $(shell sed -n '1s/version: $(p_version)/\1/p' \
@@ -214,7 +224,7 @@ $(srcdir)/gcc/configure: $(git_submodulesdir)/gcc/gcc/configure
 $(srcdir)/binutils/configure: $(git_submodulesdir)/binutils/binutils/configure
 	repo="binutils" ; \
 	for f in $$(cd $(git_submodulesdir)/$$repo && ls); do \
-		case $$f in (gdb) continue;; esac; \
+		case $$f in (gdb|gdbserver|gdbsupport|gnulib|libbacktrace|libdecnumber|readline|sim) continue;; esac; \
 		[ -e "$(srcdir)/$$f" ] || \
 		$(LN_S) ../$(git_submodulesdir)/$$repo/$$f $(srcdir)/ ; \
 	done
@@ -244,15 +254,52 @@ build: configure
 build.only:
 	$(MAKE) -C $(objdir) $(gcc_makeflags)
 
+check: build
+	$(MAKE) check.only
+check.only:
+	$(MAKE) -C $(objdir) $(gcc_makeflags) -k check
+
 install: build
 	$(MAKE) install.only
-install.only: install.only.fixes
+install.only: install.only.fixes install.only.tests
 install.only.files:
 	$(MAKE) -C $(objdir) install DESTDIR=$(DESTDIR)
 install.only.fixes: install.fix.rpath install.fix.libtool
+install.only.tests: install.only.tests.dejagnu install.only.tests.inria
+
+install.only.tests.dejagnu:
+	mkdir -p $(DESTDIR)$(docdir)/testsuite
+	find $(objdir) -type f -name "*.sum" |			\
+	(while read f; do					\
+	  testdocdir="$(DESTDIR)$(docdir)/testsuite";		\
+	  cp $$f $$testdocdir/;					\
+	  flog=$$(echo $$f | sed -e 's/\.sum$$/\.log/');	\
+	  flog_base=$$(basename $$flog);			\
+	  gzip -9c $$flog > $$testdocdir/$$flog_base.gz;	\
+	done)
+
+install.only.tests.inria:
+	mkdir -p $(DESTDIR)$(docdir)/testsuite
+	for repo in isl gmp mpc mpfr; do			\
+	  testdocdir="$(DESTDIR)$(docdir)/testsuite";		\
+	  flogs=$$(find $(objdir)/$$repo -name test-suite.log |	\
+	    sort -u);						\
+	  [ -n "$$flogs" ] || continue;				\
+	  cat $$flogs > $$testdocdir/$$repo.sum;		\
+	done
 
 install.fix.rpath: install.only.files
 ifeq ($(RPATH_SYSTEM_LIBS),yes)
+	find $(DESTDIR)$(libdir)/ -type f -name "lib*.so.[0-9]*" | \
+	(while read f; do					\
+	  [ -x "$(chrpath_exe)" ] || continue;			\
+	  rpath=$$($(chrpath_exe) -l "$$f" |			\
+	    sed -n '/.*PATH=\(.*\)$$/s//\1/p');			\
+	  case "$$rpath" in (*$(libdir)*);; (*) continue;; esac; \
+	  new_rpath=$$(echo "$$rpath" |				\
+	    sed -e 's,\(^\|:\)$(libdir)[^:]*\($$\|:\),,g');	\
+	  $(chrpath_exe) -r "$$new_rpath" "$$f";		\
+	done)
 	mkdir -p $(DESTDIR)$(slibdir)
 	(rel_libdir=$$(echo $(libdir)|				\
 	   awk -F '/' '{for (i=1;i<NF;i++) printf "../"}');	\
@@ -313,9 +360,17 @@ $(git_submodulesdir)/gmp/doc/version.texi:
 	@echo "@set EDITION $(v_gmp)" >> $@
 	@echo "@set VERSION $(v_gmp)" >> $@
 
-$(git_submodulesdir)/gcc/gcc/distro-defaults.h:
+$(git_submodulesdir)/gcc/gcc/distro-defaults.h: distro-defaults.h
+	@cp -p $< $@
+.timestamp.distro-default.h:
+	@touch $@
+distro-defaults.h: .timestamp.distro-default.h
 	@rm -f $@
 	@touch $@
+ifneq (,$(filter $(dist_release),squeeze wheezy jessie stretch))
+	echo "#undef  DWARF_VERSION_DEFAULT" >> $@
+	echo "#define DWARF_VERSION_DEFAULT 4" >> $@
+endif
 
 
 # -----------------------------------------------------------------------------
@@ -328,8 +383,8 @@ $(autotools_prefix)/bin/autoreconf: $(autotools_prefix)/bin/autoconf
 $(autotools_prefix)/bin/%: $(autotools_prefix)/%-*/configure
 	(cd $$(dirname $<) &&					\
 	 ./configure --prefix=$(CURDIR)/$(autotools_prefix) &&	\
-	 $(MAKE) &&						\
-	 $(MAKE) install)
+	 $(MAKE) MAKEINFO=/bin/true &&				\
+	 $(MAKE) MAKEINFO=/bin/true install)
 $(autotools_prefix)/%/configure: $(top_srcdir)/ext/files/%.tar.gz
 	(mkdir -p $(autotools_prefix) &&			\
 	 tar zxf $< -C $(autotools_prefix) &&			\

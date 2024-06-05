@@ -8,5 +8,6 @@ opt/toolchain/gcc-@GCC_BRANCH@/lib/*.spec
 opt/toolchain/gcc-@GCC_BRANCH@/lib/gcc
 opt/toolchain/gcc-@GCC_BRANCH@/lib/ldscripts
 opt/toolchain/gcc-@GCC_BRANCH@/libexec
+opt/toolchain/gcc-@GCC_BRANCH@/share/doc/testsuite
 opt/toolchain/gcc-@GCC_BRANCH@/share/info/*.info*
 opt/toolchain/gcc-@GCC_BRANCH@/share/man/man1/*.1*
