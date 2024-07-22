@@ -22,6 +22,13 @@ chrpath_exe		:= $(shell which chrpath)
 autotools_prefix	= $(objdir)/autotools
 autotools_deps		=
 
+m4_version		= 1.4.18
+m4_exe			:= $(shell which m4)
+ifeq (,$(m4_exe))
+m4_exe			= $(autotools_prefix)/bin/m4
+endif
+autotools_deps		+= $(m4_exe)
+
 autoconf_version	= 2.69
 autoreconf2.69_exe	:= $(shell which autoreconf)
 ifneq ($(shell $(autoreconf2.69_exe) --version|sed -n '/^auto.* \([0-9][0-9]*\)/s//\1/p'),$(autoconf_version))
@@ -379,6 +386,7 @@ endif
 
 prepare.autotools: $(autotools_deps)
 
+$(autotools_prefix)/bin/autoconf: $(m4_exe)
 $(autotools_prefix)/bin/autoreconf: $(autotools_prefix)/bin/autoconf
 $(autotools_prefix)/bin/%: $(autotools_prefix)/%-*/configure
 	(cd $$(dirname $<) &&					\
