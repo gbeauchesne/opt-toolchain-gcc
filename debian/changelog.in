@@ -1,5 +1,65 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2024/07/22 (323d010f) from the gcc-14 branch.
+    - PR rtl-optimization/115565, PR fortran/113363,
+      PR fortran/113363, PR fortran/59104, PR fortran/59104,
+      PR target/97367, PR target/97367, PR fortran/103115,
+      PR fortran/103115, PR target/115068, PR target/114988,
+      PR target/115456, PR target/115456, PR target/115725,
+      PR c++/115865, PR rtl-optimization/115049, PR c++/115476,
+      PR target/115351, PR target/115351, PR analyzer/114899,
+      PR analyzer/114899, PR ipa/113787, PR tree-optimization/113673,
+      PR Avoid load merging when potentially trapping. PR
+      PR tree-optimization/113673, PR tree-optimization/113673,
+      PR c++/115165, PR c++/111890, PR c++/115897, PR c++/106760,
+      PR target/115526, PR middle-end/115887, PR middle-end/115527,
+      PR c++/115754, PR tree-optimization/115382,
+      PR tree-optimization/115868, PR c++/99242,
+      PR tree-optimization/115841, PR tree-optimization/115843,
+      PR tree-optimization/115701, PR tree-optimization/115701,
+      PR tree-optimization/115867, PR tree-optimization/115843,
+      PR target/115459, PR target/115554, PR target/115562,
+      PR target/113719, PR target/113719, PR fortran/93635,
+      PR fortran/93635, PR target/115872, PR fortran/99798,
+      PR target/115752, PR libstdc++/113376, PR libstdc++/115522,
+      PR target/115840,. PR target/115840, PR fortran/103312,
+      PR fortran/103312, PR target/115611, PR c++/99241,
+      PR target/105090, PR middle-end/115836, PR target/113715,
+      PR libstdc++/115807, PR libstdc++/115585, PR target/114890,
+      PR target/114890, PR target/115153, PR target/115153,
+      PR target/115763, PR tree-optimization/115723,
+      PR tree-optimization/115694, PR tree-optimization/115669,
+      PR tree-optimization/115646, PR fortran/84006, PR fortran/100027,
+      PR fortran/98534, PR fortran/84006, PR fortran/100027,
+      PR fortran/98534, PR fortran/115700, PR fortran/115700,
+      PR target/115591, PR target/115188, PR target/115188,
+      PR target/87376, PR target/115475, PR target/115475,
+      PR target/115457, PR target/115457, PR c++/115623, PR c++/115623,
+      PR target/115691, PR pch/115312, PR pch/115312, PR target/98762,
+      PR target/106069, PR target/115355, PR target/106069,
+      PR target/115355, PR target/114936, PR target/88236,
+      PR target/115726, PR c/114930, PR c/115502, PR fortran/114019,
+      PR fortran/114019, PR fortran/55978, PR fortran/55978,
+      PR fortran/115390, PR fortran/115390, PR c++/115504, PR c++/115198,
+      PR c++/115358, PR libstdc++/115668, PR target/106069,
+      PR target/115355, PR libstdc++/115454, PR c/115587, PR c/115587,
+      PR target/115608, PR c++/115624, PR target/114846,
+      PR target/115342, PR libstdc++/115575, PR tree-optimization/115278,
+      PR tree-optimization/115508, PR libstdc++/115454,
+      PR tree-optimization/115544, PR driver/115440, PR c/115290,
+      PR target/111343, PR c++/115511, PR c++/99678, PR c++/115239,
+      PR c++/115283, PR target/109549, PR target/115360,
+      PR target/115253, PR target/115253, PR jit/115442,
+      PR rtl-optimization/115281, PR rtl-optimization/115281,
+      PR c++/115378, PR ada/114708, PR ada/114398, PR libstdc++/115308,
+      PR libstdc++/115247, PR libstdc++/114958, PR fortran/83865,
+      PR fortran/83865, PR target/115353, PR middle-end/115352,
+      PR c/114493
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-14 (14.1.1~1717617469-1) unstable; urgency=low
+
   * GCC 14.1.0 release.
   * Update to git 2024/06/04 (e11a42b8) from the gcc-14 branch.
     - Fix PR libstdc++/115335, PR tree-optimization/115337,
@@ -34,7 +94,7 @@
       PR modula2/114133, PR tree-optimization/114876, PR c++/114889,
       PR ipa/92606
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 05 Jun 2024 21:57:49 +0200
 
 opt-toolchain-gcc-13 (13.3.1~1716973083-1) unstable; urgency=low
 
