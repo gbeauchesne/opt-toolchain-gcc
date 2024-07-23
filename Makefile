@@ -390,6 +390,7 @@ $(autotools_prefix)/bin/autoconf: $(m4_exe)
 $(autotools_prefix)/bin/autoreconf: $(autotools_prefix)/bin/autoconf
 $(autotools_prefix)/bin/%: $(autotools_prefix)/%-*/configure
 	(cd $$(dirname $<) &&					\
+	 PATH=$$PATH:$(CURDIR)/$(autotools_prefix)/bin		\
 	 ./configure --prefix=$(CURDIR)/$(autotools_prefix) &&	\
 	 $(MAKE) MAKEINFO=/bin/true &&				\
 	 $(MAKE) MAKEINFO=/bin/true install)
