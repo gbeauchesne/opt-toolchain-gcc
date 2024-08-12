@@ -40,7 +40,8 @@ endif
 autotools_deps		+= $(automake_exe)
 
 # Determine the host operating system variant
-dist_release := $(shell lsb_release -cs 2>/dev/null)
+dist_release := $(shell lsb_release -rs 2>/dev/null | awk -F'.' '{print $$1}')
+dist_release_prereq = $(shell test $(dist_release) -ge $(1) && echo newer || echo older)
 
 # Filter out -Werror and -Werror=* from compilation flags (CFLAGS, CXXFLAGS)
 # ... and use memory for temporaries, not disk files
@@ -100,7 +101,7 @@ fixup_git_submodules_deps += $(git_submodulesdir)/gcc/gcc/distro-defaults.h
 
 # Linker options. Flag: do we use DT_GNU_HASH style by default?
 ld_hash_style = gnu
-ifneq (,$(filter $(dist_release),squeeze wheezy))
+ifeq (debian-older,$(BUILD_VENDOR)-$(call dist_release_prereq, 8))
 ld_hash_style = both
 endif
 
@@ -372,7 +373,7 @@ $(git_submodulesdir)/gcc/gcc/distro-defaults.h: distro-defaults.h
 distro-defaults.h: .timestamp.distro-default.h
 	@rm -f $@
 	@touch $@
-ifneq (,$(filter $(dist_release),squeeze wheezy jessie stretch))
+ifeq (debian-older,$(BUILD_VENDOR)-$(call dist_release_prereq, 10))
 	echo "#undef  DWARF_VERSION_DEFAULT" >> $@
 	echo "#define DWARF_VERSION_DEFAULT 4" >> $@
 endif
