@@ -1,5 +1,31 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * GCC 14.2.0 release.
+  * Update to git 2024/08/09 (b0dd13ef) from the gcc-14 branch.
+    - PR target/116287, PR target/116295, PR c++/116223,
+      PR c++/112632, PR c++/116071, PR target/113384,
+      PR tree-optimization/116224, PR target/116007, PR target/116189,
+      PR fortran/108889, PR fortran/108889, PR target/116033,
+      PR tree-optimization/116156, PR target/116043, PR c++/88313,
+      PR c++/115897, PR libstdc++/116038, PR c++/115656, PR c++/115296,
+      PR c++/112288, PR libstdc++/115399, PR libstdc++/114387,
+      PR libstdc++/115854, PR libstdc++/116070, PR libstdc++/116070,
+      PR target/115981, PR target/115978, PR target/115978,
+      PR c++/115900, PR tree-optimization/116057, PR c++/115986,
+      PR c++/115583, PR c++/115986, PR c++/115561, PR ipa/116055,
+      PR tree-optimization/116034, PR testsuite/116061, PR target/116035,
+      PR testsuite/115826, PR libstdc++/115482,
+      PR tree-optimization/116034, PR target/106069, PR c++/104981,
+      PR c++/115550, PR c++/115783, PR ipa/111613, PR target/114759,
+      PR target/115988, PR target/114759, PR target/114759,
+      PR target/114759, PR target/114759, PR target/115389,
+      PR target/115389, PR ipa/115033, PR ipa/114207, PR ipa/115277,
+      PR ipa/113291
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-14 (14.1.1~1723474274-1) unstable; urgency=low
+
   * Update to git 2024/07/22 (323d010f) from the gcc-14 branch.
     - PR rtl-optimization/115565, PR fortran/113363,
       PR fortran/113363, PR fortran/59104, PR fortran/59104,
@@ -56,7 +82,7 @@
       PR fortran/83865, PR target/115353, PR middle-end/115352,
       PR c/114493
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Mon, 12 Aug 2024 16:51:14 +0200
 
 opt-toolchain-gcc-14 (14.1.1~1717617469-1) unstable; urgency=low
 
