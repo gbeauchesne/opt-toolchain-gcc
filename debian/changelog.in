@@ -35,7 +35,6 @@ opt-toolchain-gcc-14 (14.1.1~1723474274-1) unstable; urgency=low
       PR c++/115865, PR rtl-optimization/115049, PR c++/115476,
       PR target/115351, PR target/115351, PR analyzer/114899,
       PR analyzer/114899, PR ipa/113787, PR tree-optimization/113673,
-      PR Avoid load merging when potentially trapping. PR
       PR tree-optimization/113673, PR tree-optimization/113673,
       PR c++/115165, PR c++/111890, PR c++/115897, PR c++/106760,
       PR target/115526, PR middle-end/115887, PR middle-end/115527,
