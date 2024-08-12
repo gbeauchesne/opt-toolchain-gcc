@@ -136,6 +136,11 @@ PARALLEL_JOBS ?= $(shell getconf _NPROCESSORS_ONLN)
 gcc_makeflags = -j$(PARALLEL_JOBS)
 gcc_makeflags += $(EXTRA_MAKE_FLAGS)
 
+# GCC make check flags (default: -k, i.e. the testsuite can fail)
+gcc_check_makeflags = -k
+ifeq (debian-newer,$(BUILD_VENDOR)-$(call dist_release_prereq, 11))
+gcc_check_makeflags =
+endif
 
 # -----------------------------------------------------------------------------
 # --- Rules for extracting versions for thirdparty components (submodules)  ---
@@ -265,7 +270,7 @@ build.only:
 check: build
 	$(MAKE) check.only
 check.only:
-	$(MAKE) -C $(objdir) $(gcc_makeflags) -k check
+	$(MAKE) -C $(objdir) $(gcc_makeflags) $(gcc_check_makeflags) check
 
 install: build
 	$(MAKE) install.only
