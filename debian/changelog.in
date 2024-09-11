@@ -1,6 +1,21 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
   * Update binutils to git 2024/09/11 (226d23bf) from the 2.43-branch.
+  * Update to git 2024/09/11 (6102e904) from the gcc-14 branch.
+    - Fix PR libstdc++/116159, PR libstdc++/116641, PR target/116617,
+      PR c++/116320, PR c++/116276, PR c++/116567, PR c++/116606,
+      PR ipa/116410, PR tree-optimization/116501, PR c++/116219,
+      PR libstdc++/113663, PR libstdc++/116549, PR libstdc++/116381,
+      PR target/112108, PR target/112108, PR target/112108,
+      PR target/112108, PR target/112108, PR target/112108,
+      PR lto/116361, PR lto/116361, PR target/116512, PR fortran/116530,
+      PR fortran/116530, PR testsuite/70150, PR testsuite/70150,
+      PR tree-optimization/113281, PR c++/116384, PR target/116407,
+      PR target/116407, PR target/116390, PR target/85624,
+      PR target/115464, PR target/115464, PR target/115464,
+      PR target/115464, PR target/116174, PR c++/116327, PR c++/104981,
+      PR c++/115550, PR testsuite/70150, PR testsuite/70150,
+      PR c++/41201, PR target/94254
 
  -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
 
