@@ -155,7 +155,7 @@ opt-toolchain-gcc-13 (13.2.1~1715757079-1) unstable; urgency=low
       PR target/114184, PR fortran/110826, PR fortran/110826,
       PR fortran/100988, PR fortran/100988, PR fortran/104819,
       PR fortran/104819, PR fortran/104819, PR testsuite/114343,
-      libstdc++/110167
+      PR libstdc++/110167
 
  -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 15 May 2024 09:11:19 +0200
 
