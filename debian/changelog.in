@@ -1,5 +1,49 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2024/09/11 (2d7b4df8) from the gcc-13 branch.
+    - Fix PR libstdc++/114770, PR target/116617, PR ipa/116410,
+      PR target/113780, PR target/116512, PR tree-optimization/113281,
+      PR ipa/115277, PR target/116407, PR target/114603,
+      PR target/114603, PR target/114607, PR target/114607,
+      PR target/116043, PR c++/113063, PR c++/116289, PR target/113384,
+      PR target/116189, PR fortran/108889, PR fortran/108889,
+      PR libstdc++/116070, PR target/114759, PR target/115988,
+      PR target/114759, PR target/114759, PR target/114759,
+      PR target/114759, PR target/115389, PR target/115389,
+      PR tree-optimization/115843, PR target/106069,
+      PR rtl-optimization/115565, PR fortran/103115, PR fortran/103115,
+      PR fortran/113363, PR fortran/113363, PR target/97367,
+      PR target/97367, PR rtl-optimization/115049, PR target/115526,
+      PR target/113719, PR target/113719, PR target/115872,
+      PR target/115752, PR libstdc++/115522, PR fortran/103312,
+      PR fortran/103312, PR target/115611, PR middle-end/115836,
+      PR target/105090, PR libstdc++/115807, PR libstdc++/115585,
+      PR fortran/84006, PR fortran/100027, PR fortran/98534,
+      PR fortran/84006, PR fortran/100027, PR fortran/98534,
+      PR target/87376, PR target/115475, PR target/115475,
+      PR target/115457, PR target/115457, PR target/115691,
+      PR target/98762, PR target/106069, PR target/115355,
+      PR target/106069, PR target/115355, PR target/88236,
+      PR target/115726, PR libstdc++/115668, PR target/106069,
+      PR target/115355, PR target/103100, PR target/115618,
+      PR target/115618, PR libstdc++/115454, PR target/114846,
+      PR libstdc++/115575, PR libstdc++/115454, PR driver/115440,
+      PR fortran/83865, PR fortran/83865, PR target/111343,
+      PR c++/115511, PR target/115360, PR target/115253,
+      PR target/115253, PR jit/115442, PR libstdc++/115308,
+      PR libstdc++/115247, PR libstdc++/114958,
+      PR tree-optimization/115337, PR middle-end/108789,
+      PR target/115324, PR rtl-optimization/114902,
+      PR rtl-optimization/115092, PR ada/114708, PR ada/114398,
+      PR target/115297, PR tree-optimization/115307, PR target/115317,
+      PR libstdc++/115269, PR target/113281, PR target/113281,
+      PR tree-optimization/115192, PR tree-optimization/115192,
+      PR target/113719, PR target/84790
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-13 (13.3.1~1716973083-1) unstable; urgency=low
+
   * GCC 13.3.0 release.
   * Update to git 2024/05/29 (ebca6006) from the gcc-13 branch.
     - Fix PR fortran/115150, PR libstdc++/114940, PR c++/111529,
@@ -48,7 +92,7 @@
       PR gcov-profile/114715, PR lto/114655, PR tree-optimization/114733,
       PR tree-optimization/114485, PR tree-optimization/111882
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 29 May 2024 10:58:03 +0200
 
 opt-toolchain-gcc-13 (13.2.1~1715757079-1) unstable; urgency=low
 
