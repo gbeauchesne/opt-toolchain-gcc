@@ -1,5 +1,23 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2024/09/18 (0043ac20) from the gcc-14 branch.
+    - Fix PR c++/115361, PR c++/115987, PR target/116839,
+      PR target/116839, PR target/115860, PR libstdc++/116529,
+      PR libstdc++/116754, PR libstdc++/116777, PR libstdc++/108619,
+      PR target/116237, PR c++/116418, PR c++/116492, PR fortran/100273,
+      PR fortran/100273, PR tree-optimization/116460,
+      PR middle-end/115426, PR tree-optimization/116610,
+      PR middle-end/116454, PR tree-optimization/116380,
+      PR tree-optimization/116274, PR middle-end/116258,
+      PR middle-end/116259, PR tree-optimization/116258,
+      PR tree-optimization/116258, PR middle-end/115641, PR c++/116676,
+      PR target/116621, PR target/116621, PR c++/96097, PR c++/116636,
+      PR c++/116449, PR lto/116614
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-14 (14.2.1~1726069248-1) unstable; urgency=low
+
   * Update binutils to git 2024/09/11 (226d23bf) from the 2.43-branch.
   * Update to git 2024/09/11 (6102e904) from the gcc-14 branch.
     - Fix PR libstdc++/116159, PR libstdc++/116641, PR target/116617,
@@ -17,7 +35,7 @@
       PR c++/115550, PR testsuite/70150, PR testsuite/70150,
       PR c++/41201, PR target/94254
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 11 Sep 2024 17:40:48 +0200
 
 opt-toolchain-gcc-14 (14.2.1~1723527821-1) unstable; urgency=low
 
