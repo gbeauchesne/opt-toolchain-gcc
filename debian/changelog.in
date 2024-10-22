@@ -1,5 +1,31 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2024/10/22 (f381a217) from the gcc-14 branch.
+    - Fix PR tree-optimization/117104, PR tree-optimization/116982,
+      PR tree-optimization/116907, PR tree-optimization/116481,
+      PR tree-optimization/116290, PR middle-end/115110,
+      PR target/117159, PR ipa/115815, PR ipa/115815, PR target/116883,
+      PR c++/117054, PR c++/116534, PR c++/116476, PR c++/116424,
+      PR target/117116, PR libstdc++/90276, PR libstdc++/117085,
+      PR libstdc++/117135, PR libstdc++/117094, PR ipa/109985,
+      PR testsuite/116238, PR testsuite/116238, PR ada/114593,
+      PR ada/114593, PR ipa/111613, PR tree-optimization/117041,
+      PR middle-end/117086, PR tree-optimization/116990,
+      PR tree-optimization/116879, PR tree-optimization/116850,
+      PR tree-optimization/116768, PR tree-optimization/116166,
+      PR target/116921, PR middle-end/116899, PR middle-end/116898,
+      PR target/116627, PR target/116738, PR c++/116678,
+      PR tree-optimization/116258, PR c/116726, PR ada/116190,
+      PR ada/115535, PR ada/115535, PR ada/114640, PR ada/114636,
+      PR ada/114636, PR target/116962, PR target/116962,
+      PR target/116953, PR ada/116430, PR c++/116369,
+      PR libstdc++/116857, PR libstdc++/37475, PR libstdc++/90276,
+      PR libstdc++/116755, PR tree-optimization/116585,
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-14 (14.2.1~1727857909-1) unstable; urgency=low
+
   * Update to git 2024/09/18 (0043ac20) from the gcc-14 branch.
     - Fix PR c++/115361, PR c++/115987, PR target/116839,
       PR target/116839, PR target/115860, PR libstdc++/116529,
@@ -14,7 +40,7 @@
       PR target/116621, PR target/116621, PR c++/96097, PR c++/116636,
       PR c++/116449, PR lto/116614
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 02 Oct 2024 10:31:49 +0200
 
 opt-toolchain-gcc-14 (14.2.1~1726069248-1) unstable; urgency=low
 
