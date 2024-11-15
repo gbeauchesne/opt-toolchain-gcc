@@ -3,23 +3,20 @@
   * Update to git 2024/11/15 (d9752ab9) from the gcc-14 branch.
     - Fix PR fortran/115700, PR target/117525, PR ada/117328,
       PR ada/113868, PR tree-optimization/112376, PR libstdc++/117520,
-      PR target/117408, PR target/117443, PR target/116999,
-      PR target/117045, PR target/116999, PR target/117045,
-      PR target/116629, PR target/116371, PR target/117304,
-      PR target/116371, PR c++/117158, PR c++/101463, PR c++/116634,
-      PR fortran/115070, PR fortran/115348, PR fortran/115070,
-      PR fortran/115348, PR tree-optimization/117398, PR ada/113036,
-      PR tree-optimization/117287, PR libstdc++/117406,
+      PR target/117408, PR target/117443, PR target/117045,
+      PR target/116999, PR target/116629, PR target/116371,
+      PR target/117304, PR c++/117158, PR c++/101463, PR c++/116634,
+      PR fortran/115070, PR fortran/115348, PR tree-optimization/117398,
+      PR ada/113036, PR tree-optimization/117287, PR libstdc++/117406,
       PR middle-end/117354, PR target/117296, PR libstdc++/117321,
       PR fortran/79685, PR target/114759, PR jit/117275,
       PR rtl-optimization/116783, PR target/117318,
       PR rtl-optimization/117327, PR target/116415,
       PR tree-optimization/107467, PR middle-end/115110,
-      PR tree-optimization/107467, PR middle-end/115110,
       PR middle-end/117249, PR c++/117259, PR sanitizer/117209,
       PR ada/116551, PR target/116953, PR fortran/84868, PR c++/117274,
       PR c++/117107, PR target/117240, PR c/117230,
-      PR middle-end/116891, PR c++/117107, PR c++/92687, PR c++/116929
+      PR middle-end/116891, PR c++/92687, PR c++/116929
 
  -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
 
