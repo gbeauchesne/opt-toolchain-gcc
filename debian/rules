@@ -16,6 +16,7 @@ DEB_EXTRA_CONFIGURE_FLAGS += --disable-libssp
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-checking=release
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-linker-build-id
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-gnu-unique-object
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-gnu-indirect-function
 ifeq ($(shell dpkg --compare-versions $(dist_release) '>=' 9 && echo yes),yes)
 DEB_EXTRA_CONFIGURE_FLAGS += --enable-default-pie
 endif
@@ -24,6 +25,8 @@ endif
 ifneq ($(shell dpkg --compare-versions $(dist_release) '>=' 12 && echo yes),yes)
 DEB_EXTRA_CONFIGURE_FLAGS += --with-libstdcxx-zoneinfo=static
 endif
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-libstdcxx-threads
+DEB_EXTRA_CONFIGURE_FLAGS += --enable-libstdcxx-backtrace
 
 # Plain characters (comma, space)
 c_comma := ,

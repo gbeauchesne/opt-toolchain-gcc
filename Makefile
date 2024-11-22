@@ -55,6 +55,10 @@ dist_release_prereq = $(shell test $(dist_release) -ge $(1) && echo newer || ech
 CFLAGS   := $(filter-out -Werror%, $(CFLAGS)) -pipe
 CXXFLAGS := $(filter-out -Werror%, $(CXXFLAGS)) -pipe
 
+# Filter out -fdebug-prefix-map=* from compilation flags (CFLAGS, CXXFLAGS)
+CFLAGS	 := $(filter-out -fdebug-prefix-map=%, $(CFLAGS))
+CXXFLAGS := $(filter-out -fdebug-prefix-map=%, $(CXXFLAGS))
+
 # The build architecture (default: native ARCH)
 BUILD_ARCH = $(shell uname -m)
 
@@ -121,6 +125,7 @@ gcc_confflags = \
 	--target=$(target_triplet) \
 	--enable-languages=c,c++ \
 	--enable-plugins \
+	--enable-threads=posix \
 	--enable-deterministic-archives \
 	--disable-multilib \
 	--disable-werror \
