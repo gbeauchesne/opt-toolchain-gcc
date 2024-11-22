@@ -1,5 +1,6 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update binutils to git 2024/11/22 (119b9da3) from the 2.43-branch.
   * Update to git 2024/11/15 (d9752ab9) from the gcc-14 branch.
     - Fix PR fortran/115700, PR target/117525, PR ada/117328,
       PR ada/113868, PR tree-optimization/112376, PR libstdc++/117520,
