@@ -143,7 +143,7 @@ gcc_makeflags += $(EXTRA_MAKE_FLAGS)
 
 # GCC make check flags (default: -k, i.e. the testsuite can fail)
 gcc_check_makeflags = -k
-ifeq (debian-newer,$(BUILD_VENDOR)-$(call dist_release_prereq, 11))
+ifeq (debian-newer,$(BUILD_VENDOR)-$(call dist_release_prereq, 10))
 gcc_check_makeflags =
 endif
 
