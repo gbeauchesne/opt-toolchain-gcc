@@ -47,6 +47,7 @@ endif
 autotools_deps		+= $(automake_exe)
 
 # Determine the host operating system variant
+dist_vendor := $(shell lsb_release -is 2>/dev/null | tr '[:upper:]' '[:lower:]')
 dist_release := $(shell lsb_release -rs 2>/dev/null | awk -F'.' '{print $$1}')
 dist_release_prereq = $(shell test $(dist_release) -ge $(1) && echo newer || echo older)
 
@@ -63,7 +64,7 @@ CXXFLAGS := $(filter-out -fdebug-prefix-map=%, $(CXXFLAGS))
 BUILD_ARCH = $(shell uname -m)
 
 # The build vendor (default: "pc" if `lsb_release' is not available)
-BUILD_VENDOR = $(shell lsb_release -is 2>/dev/null | tr '[:upper:]' '[:lower:]')
+BUILD_VENDOR = $(dist_vendor)
 ifeq ($(BUILD_VENDOR),)
 BUILD_VENDOR = pc
 endif
@@ -112,7 +113,7 @@ fixup_git_submodules_deps += $(git_submodulesdir)/gcc/gcc/distro-defaults.h
 
 # Linker options. Flag: do we use DT_GNU_HASH style by default?
 ld_hash_style = gnu
-ifeq (debian-older,$(BUILD_VENDOR)-$(call dist_release_prereq, 8))
+ifeq (debian-older,$(dist_vendor)-$(call dist_release_prereq, 8))
 ld_hash_style = both
 endif
 
@@ -143,7 +144,7 @@ gcc_makeflags += $(EXTRA_MAKE_FLAGS)
 
 # GCC make check flags (default: -k, i.e. the testsuite can fail)
 gcc_check_makeflags = -k
-ifeq (debian-newer,$(BUILD_VENDOR)-$(call dist_release_prereq, 10))
+ifeq (debian-newer,$(dist_vendor)-$(call dist_release_prereq, 10))
 gcc_check_makeflags =
 endif
 
@@ -385,7 +386,7 @@ $(git_submodulesdir)/gcc/gcc/distro-defaults.h: distro-defaults.h
 distro-defaults.h: .timestamp.distro-default.h
 	@rm -f $@
 	@touch $@
-ifeq (debian-older,$(BUILD_VENDOR)-$(call dist_release_prereq, 10))
+ifeq (debian-older,$(dist_vendor)-$(call dist_release_prereq, 10))
 	echo "#undef  DWARF_VERSION_DEFAULT" >> $@
 	echo "#define DWARF_VERSION_DEFAULT 4" >> $@
 endif
