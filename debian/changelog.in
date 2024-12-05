@@ -1,5 +1,30 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2024/12/05 (0eb7f0a8) from the gcc-14 branch.
+    - Fix PR ada/115917, PR analyzer/111475, PR analyzer/115724,
+      PR fortran/104819, PR fortran/105054, PR fortran/109345,
+      PR fortran/116388, PR fortran/117763, PR fortran/117774,
+      PR fortran/84869, PR middle-end/116997, PR middle-end/117433,
+      PR modula2/114529, PR modula2/115003, PR modula2/115057,
+      PR modula2/115164, PR modula2/115276, PR modula2/115328,
+      PR modula2/115536, PR modula2/115540, PR modula2/115804,
+      PR modula2/115823, PR modula2/115957, PR modula2/116048,
+      PR modula2/116181, PR modula2/116378, PR modula2/116557,
+      PR modula2/116918, PR modula2/117371, PR modula2/117555,
+      PR modula2/117660, PR other/116603, PR preprocessor/117118,
+      PR target/114942, PR target/117105, PR target/117357,
+      PR target/117418, PR target/117500, PR target/117562,
+      PR target/117564, PR target/117659, PR target/117744,
+      PR target/64242, PR testsuite/109360, PR tree-optimization/116463,
+      PR tree-optimization/117142, PR tree-optimization/117254,
+      PR tree-optimization/117307, PR tree-optimization/117333,
+      PR tree-optimization/117417, PR tree-optimization/117574,
+      PR tree-optimization/117594
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-14 (14.2.1~1733388783-1) unstable; urgency=low
+
   * Update binutils to git 2024/11/22 (119b9da3) from the 2.43-branch.
   * Backport fixes from trunk.
     - Fix dwarf v4 .debug_macro.dwo (PR debug/115066).
@@ -22,7 +47,7 @@
       PR c++/117107, PR target/117240, PR c/117230,
       PR middle-end/116891, PR c++/92687, PR c++/116929
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Thu, 05 Dec 2024 09:53:03 +0100
 
 opt-toolchain-gcc-14 (14.2.1~1729583741-1) unstable; urgency=low
 
