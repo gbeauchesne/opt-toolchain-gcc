@@ -135,6 +135,12 @@ gcc_confflags = \
 	--with-system-zlib
 gcc_confflags += $(EXTRA_CONFIGURE_FLAGS)
 
+# XXX: some tests require DW_AT_data_bit_offset fully enabled only for
+# DWARF-5 (ld-ctf/slice.c)
+ifeq (debian-older,$(dist_vendor)-$(call dist_release_prereq, 10))
+gcc_confflags += --disable-libctf
+endif
+
 # The number of allowed parallel jobs
 PARALLEL_JOBS ?= $(shell getconf _NPROCESSORS_ONLN)
 
