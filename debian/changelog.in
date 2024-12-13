@@ -1,6 +1,7 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
   * Disable CTF support on Debian/stretch (9) and earlier.
+  * Disable C++20 modules tests on Debian/jessie (8) and earlier.
   * Update to git 2024/12/05 (0eb7f0a8) from the gcc-14 branch.
     - Fix PR ada/115917, PR analyzer/111475, PR analyzer/115724,
       PR fortran/104819, PR fortran/105054, PR fortran/109345,
