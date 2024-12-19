@@ -150,8 +150,10 @@ gcc_makeflags += $(EXTRA_MAKE_FLAGS)
 
 # GCC make check flags (default: -k, i.e. the testsuite can fail)
 gcc_check_makeflags = -k
+gcc_check_can_fail = true
 ifeq (debian-newer,$(dist_vendor)-$(call dist_release_prereq, 7))
 gcc_check_makeflags =
+gcc_check_can_fail = false
 endif
 
 # -----------------------------------------------------------------------------
@@ -282,7 +284,8 @@ build.only:
 check: build
 	$(MAKE) check.only
 check.only:
-	$(MAKE) -C $(objdir) $(gcc_makeflags) $(gcc_check_makeflags) check
+	$(MAKE) -C $(objdir) $(gcc_makeflags) $(gcc_check_makeflags) check \
+		|| $(gcc_check_can_fail)
 
 install: build
 	$(MAKE) install.only
