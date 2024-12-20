@@ -1,5 +1,6 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Fix build on Debian/squeeze (6).
   * Disable CTF support on Debian/stretch (9) and earlier.
   * Disable C++20 modules tests on Debian/jessie (8) and earlier.
   * Update to git 2024/12/05 (0eb7f0a8) from the gcc-14 branch.
@@ -73,7 +74,7 @@ opt-toolchain-gcc-14 (14.2.1~1729583741-1) unstable; urgency=low
       PR ada/114636, PR target/116962, PR target/116962,
       PR target/116953, PR ada/116430, PR c++/116369,
       PR libstdc++/116857, PR libstdc++/37475, PR libstdc++/90276,
-      PR libstdc++/116755, PR tree-optimization/116585,
+      PR libstdc++/116755, PR tree-optimization/116585
 
  -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 22 Oct 2024 09:55:41 +0200
 
