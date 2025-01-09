@@ -1,5 +1,19 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2025/01/09 (c4d23084) from the gcc-14 branch.
+    - PR ada/117996, PR c++/100358, PR c++/115008, PR c++/117615,
+      PR c++/117845, PR c++/117880, PR c++/118069, PR driver/117942,
+      PR fortran/109105, PR fortran/117730, PR fortran/117791,
+      PR fortran/117797, PR fortran/117819, PR fortran/117820,
+      PR fortran/117843, PR fortran/117897, PR fortran/84674,
+      PR modula2/115328, PR modula2/117120, PR modula2/117904,
+      PR modula2/117948, PR target/114801, PR target/117675,
+      PR target/117926, PR testsuite/103298
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-14 (14.2.1~1734711405-1) unstable; urgency=low
+
   * Fix build on Debian/squeeze (6).
   * Disable CTF support on Debian/stretch (9) and earlier.
   * Disable C++20 modules tests on Debian/jessie (8) and earlier.
@@ -24,7 +38,7 @@
       PR tree-optimization/117417, PR tree-optimization/117574,
       PR tree-optimization/117594
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Fri, 20 Dec 2024 17:16:45 +0100
 
 opt-toolchain-gcc-14 (14.2.1~1733388783-1) unstable; urgency=low
 
