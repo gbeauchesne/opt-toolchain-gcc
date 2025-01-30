@@ -1,7 +1,39 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
 
+  * Update to git 2025/01/30 (a0550ff9) from the gcc-14 branch.
+    - Fix PR c++/102594, PR c++/107522, PR c++/109859, PR c++/113108,
+      PR c++/114630, PR c++/114854, PR c++/115430, PR c++/115657,
+      PR c++/116108, PR c++/116369, PR c++/117153, PR c++/117317,
+      PR c++/117614, PR c/117641, PR c/117745, PR c++/117775,
+      PR c++/117792, PR c/117802, PR c++/117825, PR c++/117855,
+      PR c++/117925, PR c++/117985, PR c++/118047, PR c++/118049,
+      PR c++/118060, PR c++/118147, PR c++/118255, PR c++/118355,
+      PR c++/118509, PR d/114434, PR d/115249, PR d/116373, PR d/117115,
+      PR fortran/106692, PR fortran/118683, PR fortran/81978,
+      PR gcov-profile/116743, PR libfortran/118571, PR libgomp/117851,
+      PR libstdc++/100249, PR libstdc++/106212, PR libstdc++/108236,
+      PR libstdc++/109517, PR libstdc++/109849, PR libstdc++/109976,
+      PR libstdc++/112349, PR libstdc++/112641, PR libstdc++/117962,
+      PR libstdc++/117966, PR libstdc++/118035, PR libstdc++/118093,
+      PR libstdc++/118185, PR libstdc++/118413, PR libstdc++/89624,
+      PR libstdc++/90389, PR middle-end/102674, PR middle-end/117458,
+      PR middle-end/117459, PR middle-end/117847, PR middle-end/118024,
+      PR middle-end/118140, PR middle-end/43374,
+      PR rtl-optimization/113994, PR rtl-optimization/116799,
+      PR rtl-optimization/117095, PR rtl-optimization/117186,
+      PR sanitizer/117960, PR target/110901, PR target/113257,
+      PR target/114801, PR target/117642, PR target/118067,
+      PR target/118184, PR target/118329, PR testsuite/116448,
+      PR testsuite/118127, PR tree-optimization/117439,
+      PR tree-optimization/117612, PR tree-optimization/117912,
+      PR tree-optimization/94589
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-14 (14.2.1~1736412972-1) unstable; urgency=low
+
   * Update to git 2025/01/09 (c4d23084) from the gcc-14 branch.
-    - PR ada/117996, PR c++/100358, PR c++/115008, PR c++/117615,
+    - Fix PR ada/117996, PR c++/100358, PR c++/115008, PR c++/117615,
       PR c++/117845, PR c++/117880, PR c++/118069, PR driver/117942,
       PR fortran/109105, PR fortran/117730, PR fortran/117791,
       PR fortran/117797, PR fortran/117819, PR fortran/117820,
@@ -10,7 +42,7 @@
       PR modula2/117948, PR target/114801, PR target/117675,
       PR target/117926, PR testsuite/103298
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Thu, 09 Jan 2025 09:56:12 +0100
 
 opt-toolchain-gcc-14 (14.2.1~1734711405-1) unstable; urgency=low
 
