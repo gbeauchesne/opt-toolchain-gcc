@@ -128,3 +128,27 @@ Description: UBSan -- undefined behaviour sanitizer (runtime)
  UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
  Various computations will be instrumented to detect undefined behavior
  at runtime. Available for C and C++.
+
+Package: cpp-@GCC_BRANCH@
+Section: devel
+Architecture: any
+Depends: @PACKAGE_NAME@ (= @PACKAGE_VERSION@)
+Description: GCC, the GNU Compiler Collection (system symlinks)
+ This package contains system symlinks for the GNU Compiler Collection @GCC_BRANCH@.x
+ tools (C/C++ preprocessor).
+
+Package: gcc-@GCC_BRANCH@
+Section: devel
+Architecture: any
+Depends: cpp-@GCC_BRANCH@ (= ${binary:Version})
+Description: GCC, the GNU Compiler Collection (system symlinks)
+ This package contains system symlinks for the GNU Compiler Collection @GCC_BRANCH@.x
+ tools (C compiler).
+
+Package: g++-@GCC_BRANCH@
+Section: devel
+Architecture: any
+Depends: cpp-@GCC_BRANCH@ (= ${binary:Version})
+Description: GCC, the GNU Compiler Collection (system symlinks)
+ This package contains system symlinks for the GNU Compiler Collection @GCC_BRANCH@.x
+ tools (C++ compiler).

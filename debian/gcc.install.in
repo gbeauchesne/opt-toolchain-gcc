@@ -1,0 +1,2 @@
+usr/bin/gcc-@GCC_BRANCH@
+usr/share/man/man1/gcc-@GCC_BRANCH@.1*

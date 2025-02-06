@@ -53,8 +53,12 @@ endif
 # Package name, that includes the GCC branch and UNIX timestamp
 PACKAGE_BASENAME = opt-toolchain-gcc
 PACKAGE_NAME = $(PACKAGE_BASENAME)-$(GCC_BRANCH)
-PACKAGE_VERSION = $(GCC_VERSION)~$(PACKAGE_TIMESTAMP)
+PACKAGE_TWEAK = 1
+PACKAGE_VERSION = $(GCC_VERSION)~$(PACKAGE_TIMESTAMP)-$(PACKAGE_TWEAK)
 PACKAGE_TIMESTAMP = $(shell $(MAKE)|sed -n '/^$(PACKAGE_BASENAME).*: [0-9][0-9.]*~\([0-9][0-9]*\)/s//\1/p')
+
+SYSTEM_PACKAGE_VERSION_EQUIV = \
+	$(GCC_MAJOR_VERSION).$(GCC_MINOR_VERSION).0-0.$(PACKAGE_TIMESTAMP).$(PACKAGE_TWEAK)
 
 # Date of the day for auto-generated debian/changelog file
 TODAY := $(shell LC_ALL=C date -d @$(PACKAGE_TIMESTAMP) +'%a, %d %b %Y %X %z')
@@ -64,9 +68,13 @@ gcc_lib_depends := \
 	$(shell sed -n '/^Package: \(lib.*[0-9]\)-.*/s//\1-$(GCC_BRANCH)/p' \
 	  debian/control.in)
 
+# List of packages with system-wide symlinks to compiler tools
+gcc_sys_packages := cpp gcc g++
+
 # Debian files that need to be generated
 GENERATED_FILES = \
 	$(gcc_lib_depends:%=debian/%.install) \
+	$(gcc_sys_packages:%=debian/%-$(GCC_MAJOR_VERSION).install) \
 	debian/$(PACKAGE_NAME).install \
 	debian/lintian-overrides \
 	debian/changelog \
@@ -90,14 +98,19 @@ GENERATED_FILES_SED_PATTERNS = \
 
 debian/%: debian/%.in debian/rules
 	sed $(GENERATED_FILES_SED_PATTERNS) $< >$@
-debian/$(PACKAGE_NAME).%: debian/$(PACKAGE_BASENAME).%.in debian/rules
-	sed $(GENERATED_FILES_SED_PATTERNS) $< >$@
-debian/lib%-$(GCC_MAJOR_VERSION).install: debian/lib%.install.in debian/rules
+debian/%-$(GCC_MAJOR_VERSION).install: debian/%.install.in debian/rules
 	sed $(GENERATED_FILES_SED_PATTERNS) $< >$@
 
 override_dh_auto_configure: $(GENERATED_FILES)
 	make configure \
 	  EXTRA_CONFIGURE_FLAGS='$(DEB_EXTRA_CONFIGURE_FLAGS)'
+
+override_dh_gencontrol:
+	dh_gencontrol
+	for f in $(gcc_sys_packages); do	\
+	  dh_gencontrol -p$$f-$(GCC_BRANCH) --	\
+	    -v$(SYSTEM_PACKAGE_VERSION_EQUIV) ;	\
+	done
 
 override_dh_auto_build:
 	make build.only
@@ -109,6 +122,8 @@ endif
 
 override_dh_auto_install:
 	make install.only \
+	  DESTDIR=$(CURDIR)/debian/tmp
+	make install.only.links \
 	  DESTDIR=$(CURDIR)/debian/tmp
 
 override_dh_strip:

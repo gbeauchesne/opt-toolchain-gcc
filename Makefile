@@ -316,6 +316,17 @@ install.only.tests.inria:
 	  cat $$flogs > $$testdocdir/$$repo.sum;		\
 	done
 
+GCC_TOOLS = cpp g++ gcc
+install.only.links:
+	mkdir -p $(DESTDIR)/usr/bin
+	mkdir -p $(DESTDIR)/usr/share/man/man1
+	for tool in $(GCC_TOOLS); do					\
+	  ln -sf ../../$(prefix)/bin/$$tool				\
+	    $(DESTDIR)/usr/bin/$$tool-$(v_gcc_branch);			\
+	  gzip -9c $(DESTDIR)$(prefix)/share/man/man1/$$tool.1 >	\
+	    $(DESTDIR)/usr/share/man/man1/$$tool-$(v_gcc_branch).1.gz ;	\
+	done
+
 install.fix.rpath: install.only.files
 ifeq ($(RPATH_SYSTEM_LIBS),yes)
 	find $(DESTDIR)$(libdir)/ -type f -name "lib*.so.[0-9]*" | \

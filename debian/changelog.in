@@ -1,5 +1,6 @@
-@PACKAGE_NAME@ (@PACKAGE_VERSION@-1) unstable; urgency=low
+@PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Add {cpp,gcc,g++}-GCC_BRANCH packages with system symlinks to tools.
   * Update binutils to git 2025/01/19 (6d4aa19e) from the 2.43-branch.
   * Update to git 2025/01/30 (a0550ff9) from the gcc-14 branch.
     - Fix PR c++/102594, PR c++/107522, PR c++/109859, PR c++/113108,
