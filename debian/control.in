@@ -23,7 +23,7 @@ Standards-Version: 3.7.2
 Package: @PACKAGE_NAME@
 Section: libs
 Architecture: amd64
-Depends: @GCC_LIB_DEPENDS@ ${shlibs:Depends}, ${misc:Depends}
+Depends: @GCC_LIB_DEPENDS@ ${shlibs:Depends}, ${misc:Depends}, libc6-dev
 Description: GCC, the GNU Compiler Collection
  This package contains the GNU Compiler Collection @GCC_BRANCH@.x for
  C and C++ languages installed in /opt/toolchain/gcc-@GCC_BRANCH@/
