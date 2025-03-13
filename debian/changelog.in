@@ -2,6 +2,37 @@
 
   * Update binutils to git 2025/02/23 (0058986f) from the 2.43-branch.
     - Fix PR32238, ld -r slowdown since 21401fc7bf
+  * Update to git 2025/03/13 (6fcad2bf) from the gcc-14 branch.
+    - Fix PR ada/118712, PR c++/115580, PR c++/115586, PR c++/117512,
+      PR c++/117827, PR c++/118053, PR c++/118285, PR c++/118655
+      PR c++/118661, PR c++/118673, PR c++/118763, PR c++/118849
+      PR c++/119038, PR c++/119134, PR d/116961, PR d/118477
+      PR d/119112, PR d/119139, PR driver/117739, PR fortran/103391
+      PR fortran/108434, PR fortran/108454, PR fortran/109066
+      PR fortran/110993, PR fortran/117434, PR fortran/118080
+      PR fortran/118640, PR fortran/118750, PR fortran/119054
+      PR fortran/59252, PR ipa/117432, PR ipa/118243, PR ipa/118400
+      PR jit/118780, PR libstdc++/100249, PR libstdc++/104395
+      PR libstdc++/105258, PR libstdc++/117921, PR libstdc++/118158
+      PR libstdc++/118160, PR libstdc++/118811, PR libstdc++/119121
+      PR lto/113207, PR middle-end/114877, PR middle-end/115913
+      PR modula2/115032, PR modula2/115112, PR modula2/118703
+      PR modula2/118761, PR rtl-optimization/117506
+      PR rtl-optimization/118320, PR rtl-optimization/118638
+      PR rtl-optimization/118662, PR rtl-optimization/118739
+      PR rtl-optimization/119071, PR target/115485, PR target/116720
+      PR target/118531, PR target/118561, PR target/118685
+      PR target/118776, PR target/118813, PR target/118815
+      PR target/118825, PR target/118835, PR target/118843
+      PR target/118844, PR target/118942, PR target/119084
+      PR tree-optimization/112859, PR tree-optimization/114052
+      PR tree-optimization/115347, PR tree-optimization/115494
+      PR tree-optimization/116906, PR tree-optimization/117113
+      PR tree-optimization/117119, PR tree-optimization/117424
+      PR tree-optimization/117919, PR tree-optimization/117979
+      PR tree-optimization/118522, PR tree-optimization/118605
+      PR tree-optimization/118653, PR tree-optimization/118689
+      PR tree-optimization/118717, PR tree-optimization/118976
 
  -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
 
