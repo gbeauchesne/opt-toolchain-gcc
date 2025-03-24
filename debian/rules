@@ -107,9 +107,10 @@ override_dh_auto_configure: $(GENERATED_FILES)
 
 override_dh_gencontrol:
 	dh_gencontrol
-	for f in $(gcc_sys_packages); do	\
-	  dh_gencontrol -p$$f-$(GCC_BRANCH) --	\
-	    -v$(SYSTEM_PACKAGE_VERSION_EQUIV) ;	\
+	for f in $(gcc_sys_packages); do			\
+	  sed -i "/^$$f-$(GCC_BRANCH)_/d" debian/files ;	\
+	  dh_gencontrol -p$$f-$(GCC_BRANCH) --			\
+	    -v$(SYSTEM_PACKAGE_VERSION_EQUIV) ;			\
 	done
 
 override_dh_auto_build:
