@@ -1,12 +1,18 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Binutils 2.44 release (ef34098d).
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-15 (15.1.1~1746040195-1) unstable; urgency=low
+
   * GCC 15.1.0 release.
   * Update to git 2025/04/30 (17695fe9) from the gcc-15 branch.
     - Fix PR target/119610, PR target/119610, PR c++/119939,
       PR  c++/119863, PR target/119873, PR libstdc++/109162,
       PR  libstdc++/109162, PR target/119873, PR target/119327
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 30 Apr 2025 19:09:55 +0000
 
 opt-toolchain-gcc-14 (14.2.1~1742844901-1) unstable; urgency=low
 
