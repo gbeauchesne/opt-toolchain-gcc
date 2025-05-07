@@ -1,6 +1,13 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
   * Binutils 2.44 release (ef34098d).
+  * Update to git 2025/05/07 (77780c31) from the gcc-15 branch.
+    - Fix PR ipa/119852, PR ipa/119852, PR libstdc++/120114,
+      PR tree-optimization/120048, PR tree-optimization/120074,
+      PR ipa/120006, PR ipa/119973, PR ada/120104, PR fortran/102900,
+      PR c/120057, PR c++/120023, PR c++/119938, PR c++/119551,
+      PR c++/119996, PR tree-optimization/119712, PR c++/119981,
+      PR c++/119378, PR ada/112958, PR target/119989
 
  -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
 
