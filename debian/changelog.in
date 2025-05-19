@@ -1,5 +1,29 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Update to git 2025/05/19 (f53afae9) from the gcc-15-branch.
+    - Fix PR fortran/120049, PR c++/120161, PR fortran/120139,
+      PR fortran/120107, PR c++/120125, PR c++/119864, PR fortran/120163,
+      PR fortran/120163, PR modula2/120117, PR modula2/120117,
+      PR modula2/115276, PR modula2/119915, PR modula2/119915,
+      PR modula2/119914, PR modula2/119914, PR modula2/120188,
+      PR modula2/120188, PR modula2/120188, PR libfortran/120196,
+      PR fortran/120191, PR fortran/120191, PR fortran/120191,
+      PR libstdc++/120187, PR libstdc++/120198, PR c++/120012,
+      PR libstdc++/119714, PR libstdc++/112490, PR libstdc++/119427,
+      PR libstdc++/118260, PR tree-optimization/120211, PR ipa/120146,
+      PR tree-optimization/120143, PR tree-optimization/120089,
+      PR tree-optimization/120043, PR fortran/119928, PR fortran/119928,
+      PR testsuite/119909, PR fortran/120179, PR fortran/119986,
+      PR libfortran/120152, PR libfortran/120153, PR libfortran/120158,
+      PR libfortran/120158, PR libfortran/120153,
+      PR libfortran/120152, PR preprocessor/108900,
+      PR preprocessor/116047, PR preprocessor/120061,
+      PR libstdc++/120159, PR c++/120012
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-15 (15.1.1~1746630299-1) unstable; urgency=low
+
   * Binutils 2.44 release (ef34098d).
   * Update to git 2025/05/07 (77780c31) from the gcc-15 branch.
     - Fix PR ipa/119852, PR ipa/119852, PR libstdc++/120114,
@@ -9,7 +33,7 @@
       PR c++/119996, PR tree-optimization/119712, PR c++/119981,
       PR c++/119378, PR ada/112958, PR target/119989
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 07 May 2025 17:04:59 +0200
 
 opt-toolchain-gcc-15 (15.1.1~1746040195-1) unstable; urgency=low
 
