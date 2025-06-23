@@ -1,5 +1,6 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Fix PR rtl-optimization/120182 test for Debian/stretch (9).
   * Update to git 2025/06/23 (0be140d8) from the gcc-15 branch.
     - Fix PR target/119971, PR middle-end/120631,
       PR middle-end/120631, PR fortran/51961, PR middle-end/120544,
