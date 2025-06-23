@@ -1,5 +1,35 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Update to git 2025/06/23 (0be140d8) from the gcc-15 branch.
+    - Fix PR target/119971, PR middle-end/120631,
+      PR middle-end/120631, PR fortran/51961, PR middle-end/120544,
+      PR tree-optimization/120677, PR rtl-optimization/120423,
+      PR rtl-optimization/116389, PR middle-end/117811,
+      PR testsuite/52641, PR tree-optimization/120638,
+      PR middle-end/120547, PR fortran/120483, PR libstdc++/120625,
+      PR ipa/120295, PR ipa/120295, PR libstdc++/99832,
+      PR libstdc++/120548, PR target/120042, PR rtl-optimization/120050,
+      PR c++/120555, PR c++/120502, PR libstdc++/120432,
+      PR tree-optimization/120357, PR tree-optimization/120341,
+      PR rtl-optimization/120182, PR tree-optimization/120003,
+      PR tree-optimization/120003, PR tree-optimization/119960,
+      PR tree-optimization/116352, PR tree-optimization/119960,
+      PR fortran/99838, PR fortran/102599, PR fortran/114022,
+      PR fortran/101735, PR fortran/101735, PR c++/120123,
+      PR fortran/120193, PR libfortran/119856, PR fortran/119856,
+      PR libstdc++/120465, PR fortran/120049, PR fortran/120355,
+      PR fortran/120355, PR c/120180, PR c/120180, PR c/120180,
+      PR target/120480, PR middle-end/118694, PR libstdc++/120367,
+      PR target/120442, PR target/120441, PR middle-end/118694,
+      PR middle-end/118694, PR c++/120413, PR target/86772,
+      PR c++/120363, PR c++/120414, PR fortran/85750, PR fortran/102891,
+      PR tree-optimization/111873, PR c++/120013, PR c++/120350,
+      PR libstdc++/120293, PR libstdc++/120029, PR libstdc++/120190
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-15 (15.1.1~1747632077-1) unstable; urgency=low
+
   * Update to git 2025/05/19 (f53afae9) from the gcc-15-branch.
     - Fix PR fortran/120049, PR c++/120161, PR fortran/120139,
       PR fortran/120107, PR c++/120125, PR c++/119864, PR fortran/120163,
@@ -20,7 +50,7 @@
       PR preprocessor/116047, PR preprocessor/120061,
       PR libstdc++/120159, PR c++/120012
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Mon, 19 May 2025 07:21:17 +0200
 
 opt-toolchain-gcc-15 (15.1.1~1746630299-1) unstable; urgency=low
 
