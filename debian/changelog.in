@@ -1,5 +1,70 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * GCC 15.2.0 release.
+  * Update to git 2025/09/05 (6c1e0715) from the gcc-15 branch.
+    - Fix PR bootstrap/118009, PR bootstrap/119089, PR c++/108080,
+      PR c++/109283, PR c++/115605, PR c++/115908, PR c++/116064,
+      PR c++/116775, PR c++/118074, PR c++/118856, PR c++/118903,
+      PR c++/119859, PR c++/119916, PR c/119950, PR c/120055,
+      PR c++/120224, PR c++/120243, PR c++/120273, PR c/120353,
+      PR c/120354, PR c++/120412, PR c++/120453, PR c++/120471,
+      PR c++/120495, PR c++/120499, PR c++/120569, PR c++/120575,
+      PR c++/120577, PR c++/120620, PR c++/120628, PR c++/120684,
+      PR c++/120756, PR c++/120800, PR c/120837, PR c++/120845,
+      PR c++/120940, PR c++/120954, PR c++/121055, PR c++/121133,
+      PR c++/121219, PR c++/121238, PR c++/121351, PR c++/121396,
+      PR c++/121724, PR c++/87097, PR c++/95615 PR ipa/114790,
+      PR ipa/119318, PR ipa/121023, PR libgcc/117600,
+      PR libstdc++/110853, PR libstdc++/118681, PR libstdc++/119754,
+      PR libstdc++/119861, PR libstdc++/119962, PR libstdc++/120390,
+      PR libstdc++/120648, PR libstdc++/120650, PR libstdc++/120931,
+      PR libstdc++/120934, PR libstdc++/120997, PR libstdc++/121097,
+      PR libstdc++/121313, PR libstdc++/121373, PR libstdc++/121374,
+      PR libstdc++/121496, PR libstdc++/121745, PR lto/120308,
+      PR middle-end/119835, PR middle-end/120369, PR middle-end/120608,
+      PR middle-end/120709, PR middle-end/120935,
+      PR middle-end/121095, PR middle-end/121159, PR middle-end/121322,
+      PR middle-end/121389, PR rtl-optimization/120242,
+      PR rtl-optimization/120347, PR rtl-optimization/120550,
+      PR rtl-optimization/120627, PR rtl-optimization/120718,
+      PR rtl-optimization/120736, PR rtl-optimization/120795,
+      PR rtl-optimization/120813, PR rtl-optimization/120983,
+      PR rtl-optimization/121253, PR rtl-optimization/121340,
+      PR rtl-optimization/87600, PR target/116445, PR target/118241,
+      PR target/118794, PR target/118885, PR target/118891,
+      PR target/119692, PR target/119737, PR target/119830,
+      PR target/119853, PR target/119854, PR target/120119,
+      PR target/120351, PR target/120356, PR target/120427,
+      PR target/120476, PR target/120530, PR target/120624,
+      PR target/120645, PR target/120691, PR target/120714,
+      PR target/120807, PR target/120908, PR target/120986,
+      PR target/120995, PR target/120999, PR target/121007,
+      PR target/121027, PR target/121028, PR target/121064,
+      PR target/121118, PR target/121121, PR target/121208,
+      PR target/121274, PR target/121277, PR target/121294,
+      PR target/121414, PR target/121449, PR target/121534,
+      PR target/121542, PR target/121548, PR target/121608,
+      PR target/121634, PR target/96226, PR testsuite/119382,
+      PR testsuite/119508, PR testsuite/120082, PR testsuite/120919,
+      PR testsuite/121286, PR testsuite/121288,
+      PR tree-optimization/117423, PR tree-optimization/118669,
+      PR tree-optimization/118891, PR tree-optimization/119085,
+      PR tree-optimization/120358, PR tree-optimization/120654,
+      PR tree-optimization/120729, PR tree-optimization/120780,
+      PR tree-optimization/120817, PR tree-optimization/120924,
+      PR tree-optimization/120927, PR tree-optimization/120944,
+      PR tree-optimization/121035, PR tree-optimization/121049,
+      PR tree-optimization/121059, PR tree-optimization/121127,
+      PR tree-optimization/121130, PR tree-optimization/121131,
+      PR tree-optimization/121190, PR tree-optimization/121202,
+      PR tree-optimization/121256, PR tree-optimization/121264,
+      PR tree-optimization/121320, PR tree-optimization/121323,
+      PR tree-optimization/121413
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-15 (15.2.1~1750692989-1) unstable; urgency=low
+
   * Fix PR rtl-optimization/120182 test for Debian/stretch (9).
   * Update to git 2025/06/23 (0be140d8) from the gcc-15 branch.
     - Fix PR target/119971, PR middle-end/120631,
@@ -27,7 +92,7 @@
       PR tree-optimization/111873, PR c++/120013, PR c++/120350,
       PR libstdc++/120293, PR libstdc++/120029, PR libstdc++/120190
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Mon, 23 Jun 2025 17:36:29 +0200
 
 opt-toolchain-gcc-15 (15.1.1~1747632077-1) unstable; urgency=low
 
