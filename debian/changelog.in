@@ -1,5 +1,40 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Update to git 2025/11/14 (2e9bed79) from the gcc-15 branch.
+    - Fix PR libstdc++/122661, PR target/122216, PR target/122216,
+      PR target/122216, PR target/122216, PR target/122216,
+      PR target/122175, PR target/122175, PR target/122175,
+      PR target/122189, PR target/122189, PR ada/122640,
+      PR target/122446, PR target/122446, PR lto/122620,
+      PR target/122097, PR target/122097, PR target/118460,
+      PR target/118460, PR target/118460, PR target/122516,
+      PR ada/118208, PR c++/122253, PR rtl-optimization/122321,
+      PR target/122270, PR target/122527, PR tree-optimization/118012,
+      PR tree-optimization/122505, PR c++/122421, PR fortran/114023,
+      PR fortran/122386, PR c++/122381, PR tree-optimization/122408,
+      PR tree-optimization/122408, PR c++/122192, PR c++/122192,
+      PR c++/122310, PR tree-optimization/122394, PR target/120674,
+      PR target/121604, PR target/121604, PR target/122323,
+      PR target/119079, PR target/121599, PR fortran/122206,
+      PR fortran/107968, PR ada/118782, PR ada/81087, PR target/122323,
+      PR tree-optimization/122012, PR tree-optimization/122012,
+      PR target/99930, PR target/122323, PR target/99930,
+      PR target/122323, PR target/122223, PR c++/122302,
+      PR target/122223, PR target/122223, PR target/121599,
+      PR target/121599, PR go/104290, PR libstdc++/122322,
+      PR libstdc++/122062, PR ada/107536, PR target/122119,
+      PR tree-optimization/121772, PR c++/120757, PR c/122188,
+      PR c/122188, PR middle-end/122133, PR tree-optimization/122104,
+      PR tree-optimization/122213, PR target/121845, PR target/122222,
+      PR target/122220, PR target/122210, PR target/122210,
+      PR target/121652, PR target/122187, PR target/122177,
+      PR ada/113536, PR ada/118343, PR target/121742, PR target/121780,
+      PR target/121781, PR target/121742, PR target/110812
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-15 (15.2.1~1759305889-1) unstable; urgency=low
+
   * Update to git 2025/10/01 (6ee11981) from the gcc-15 branch.
     - Fix PR ada/117517, PR fortran/121616, PR fortran/121939,
       PR fortran/108581, PR target/121875, PR tree-optimization/121772,
@@ -22,7 +57,7 @@
       PR libstdc++/120698, PR target/121510, PR target/121794,
       PR target/121794
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 01 Oct 2025 10:04:49 +0200
 
 opt-toolchain-gcc-15 (15.2.1~1757087644-1) unstable; urgency=low
 
