@@ -1,5 +1,6 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Update binutils 2.44 to current git branch (9256a4b3).
   * Update to git 2025/11/26 (fa27ae24) from the gcc-15 branch.
     - Fix PR c++/122789, PR target/122692, PR ada/111433,
       PR c++/120529, PR tree-optimization/122225, PR target/122695,
