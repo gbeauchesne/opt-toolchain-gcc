@@ -1,5 +1,18 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Update to git 2025/11/26 (fa27ae24) from the gcc-15 branch.
+    - Fix PR c++/122789, PR target/122692, PR ada/111433,
+      PR c++/120529, PR tree-optimization/122225, PR target/122695,
+      PR libstdc++/122743, PR c++/119580, PR fortran/122709,
+      PR c++/122677, PR target/122539, PR target/122539, PR lto/122515,
+      PR lto/122515, PR lto/122515, PR libstdc++/122726, PR target/121853,
+      PR target/121853, PR tree-optimization/121776, PR middle-end/121581,
+      PR rtl-optimization/122627, PR c++/122625, PR target/119275
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-15 (15.2.1~1763138168-1) unstable; urgency=low
+
   * Update to git 2025/11/14 (2e9bed79) from the gcc-15 branch.
     - Fix PR libstdc++/122661, PR target/122216, PR target/122216,
       PR target/122216, PR target/122216, PR target/122216,
@@ -31,7 +44,7 @@
       PR ada/113536, PR ada/118343, PR target/121742, PR target/121780,
       PR target/121781, PR target/121742, PR target/110812
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Fri, 14 Nov 2025 16:36:08 +0000
 
 opt-toolchain-gcc-15 (15.2.1~1759305889-1) unstable; urgency=low
 
