@@ -1,5 +1,26 @@
 @PACKAGE_NAME@ (@PACKAGE_VERSION@) unstable; urgency=low
 
+  * Update to git 2025/12/22 (413fa36e) from the gcc-15 branch.
+    - Fix PR libfortran/122936, PR debug/121964, PR libstdc++/122907,
+      PR libstdc++/122812, PR c++/122752, PR libstdc++/120446,
+      PR c++/120446, PR c++/122668, PR c++/114764, PR target/123022,
+      PR fortran/107406, PR ada/123138, PR ada/123060, PR ada/123096,
+      PR rtl-optimization/122215, PR rtl-optimization/122215,
+      PR ada/123088, PR c/123018, PR target/122652, PR fortran/122977,
+      PR target/122656, PR ada/123037, PR target/122991,
+      PR target/122991, PR tree-optimization/122943, PR c/121506,
+      PR middle-end/120052, PR middle-end/120564, PR middle-end/122624,
+      PR c++/121445, PR c++/120876, PR ada/115305, PR lto/122515,
+      PR libstdc++/122921, PR target/122858, PR target/122858,
+      PR target/110796, PR target/118446, PR libstdc++/122842,
+      PR c++/122658, PR tree-optimization/122126,
+      PR tree-optimization/122126, PR target/122867, PR target/122867,
+      PR c++/121325
+
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+
+opt-toolchain-gcc-15 (15.2.1~1764171497-1) unstable; urgency=low
+
   * Update binutils 2.44 to current git branch (9256a4b3).
   * Update to git 2025/11/26 (fa27ae24) from the gcc-15 branch.
     - Fix PR c++/122789, PR target/122692, PR ada/111433,
@@ -10,7 +31,7 @@
       PR target/121853, PR tree-optimization/121776, PR middle-end/121581,
       PR rtl-optimization/122627, PR c++/122625, PR target/119275
 
- -- Gwenole Beauchesne <gb.devel@gmail.com>  @TODAY@
+ -- Gwenole Beauchesne <gb.devel@gmail.com>  Wed, 26 Nov 2025 15:38:17 +0000
 
 opt-toolchain-gcc-15 (15.2.1~1763138168-1) unstable; urgency=low
 
